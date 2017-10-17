@@ -1,14 +1,12 @@
+import javax.swing.*;
+import java.util.*;
+
 public class project3 {
 
     public static void main(String[] args){
 
         // read in text file and update board
         GUI gui = new GUI();
-        //System.out.println("ryan");
-        System.out.println("ryan");
-
-        System.out.println("Edgar the best");
-
-
+        gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 }
