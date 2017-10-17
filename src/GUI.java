@@ -1,3 +1,5 @@
+import com.sun.java.swing.action.HelpMenu;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -23,6 +25,7 @@ public class GUI extends JFrame implements ActionListener{
         container = getContentPane();
         container.setLayout( grid );
 
+        addMenu();  //Adds the menu bar to the window
         setSize( 800, 800 );
         setVisible( true );
     }
@@ -30,6 +33,129 @@ public class GUI extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    // Creates menu bar and attach it to GUI window
+    // and adds all buttons like exit, add puzzle,
+    // and load a puzzle from a file
+    private void addMenu() {
+        //set up File menu and its menu items
+        JMenu fileMenu = new JMenu("File");
+        fileMenu.setMnemonic('F');
+
+        //set up Load Puzzle submenu item under File
+        JMenuItem loadItem = new JMenuItem("Load Puzzle");
+        loadItem.setMnemonic('L');
+        fileMenu.add(loadItem);
+        loadItem.addActionListener(
+                new ActionListener() {  // anonymous inner class
+                    // Loads new puzzle into program
+                    public void actionPerformed(ActionEvent event) {
+                        JOptionPane.showMessageDialog(GUI.this,
+                                "Perform action",
+                                "Load Puzzle", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        //set up Store Puzzle submenu item under File
+        JMenuItem storeItem = new JMenuItem("Store Puzzle");
+        storeItem.setMnemonic('S');
+        fileMenu.add(storeItem);
+        storeItem.addActionListener(
+                new ActionListener() {  // anonymous inner class
+                    // Loads new puzzle into program
+                    public void actionPerformed(ActionEvent event) {
+                        JOptionPane.showMessageDialog(GUI.this,
+                                "Perform action",
+                                "Store Puzzle", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        //set up Exit submenu item under File
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setMnemonic('x');
+        fileMenu.add(exitItem);
+        exitItem.addActionListener(
+                new ActionListener(){  // anonymous inner class
+                    // terminate application when user clicks exitItem
+                    public void actionPerformed(ActionEvent event){
+                        System.exit(0);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        JMenu helpMenu = new JMenu("Help");
+        fileMenu.setMnemonic('H');
+
+        //set up How to play submenu item under Help
+        JMenuItem helpItem = new JMenuItem("How to Play");
+        helpItem.setMnemonic('p');
+        helpMenu.add(helpItem);
+        helpItem.addActionListener(
+                new ActionListener(){  // anonymous inner class
+                    public void actionPerformed(ActionEvent event){
+                        JOptionPane.showMessageDialog(GUI.this,
+                                "ADD rules",
+                                "How to Play", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        //set up How to use interface submenu item under Help
+        JMenuItem interfaceItem = new JMenuItem("How to Use Interface");
+        interfaceItem.setMnemonic('i');
+        helpMenu.add(interfaceItem);
+        interfaceItem.addActionListener(
+                new ActionListener(){  // anonymous inner class
+                    public void actionPerformed(ActionEvent event){
+                        JOptionPane.showMessageDialog(GUI.this,
+                                "add how to use interface ",
+                                "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        //set up About submenu item under Help
+        JMenuItem aboutItem = new JMenuItem("About");
+        aboutItem.setMnemonic('A');
+        helpMenu.add(aboutItem);
+        aboutItem.addActionListener(
+                new ActionListener(){  // anonymous inner class
+                    // display message dialog when user selects About...
+                    public void actionPerformed(ActionEvent event){
+                        JOptionPane.showMessageDialog( GUI.this,
+                                "Authors:\n   Edgar Martinez-Ayala -> emart9\n" +
+                                        "   Ryan Moran                -> rmoran8\n",
+                                "About",JOptionPane.PLAIN_MESSAGE );
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener
+
+        JMenu hintMenu = new JMenu("Hint");
+        fileMenu.setMnemonic('h');
+
+        //set up Check on Fill  submenu item under hint
+        JMenuItem checkItem = new JMenuItem("Check on Fill");
+        checkItem.setMnemonic('c');
+        hintMenu.add(checkItem);
+        checkItem.addActionListener(
+                new ActionListener(){  // anonymous inner class
+                    public void actionPerformed(ActionEvent event){
+                        JOptionPane.showMessageDialog(GUI.this,
+                                "add toggle",
+                                "Check on Fill", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }  // end anonymous inner class
+        ); // end call to addActionListener\
+
+        // Makes bar and adds all buttons to it
+        JMenuBar bar = new JMenuBar();
+        setJMenuBar(bar);
+        bar.add(fileMenu);
+        bar.add(helpMenu);
+        bar.add(hintMenu);
     }
 
     public void setInitialBoard(){
