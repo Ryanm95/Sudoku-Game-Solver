@@ -22,6 +22,9 @@ public class GUI extends JFrame implements ActionListener{
         grid = new GridLayout(9,9);
         container = getContentPane();
         container.setLayout( grid );
+
+        setSize( 800, 800 );
+        setVisible( true );
     }
 
     @Override
