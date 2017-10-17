@@ -2,6 +2,7 @@ public class project3 {
 
     public static void main(String[] args){
 
-        System.out.println("Hello world");
+        // read in text file and update board
+        GUI gui = new GUI();
     }
 }
