@@ -4,6 +4,7 @@ public class project3 {
 
         // read in text file and update board
         GUI gui = new GUI();
+        //System.out.println("ryan");
         System.out.println("ryan");
     }
 }
