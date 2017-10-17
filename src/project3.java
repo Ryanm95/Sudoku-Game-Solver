@@ -6,5 +6,9 @@ public class project3 {
         GUI gui = new GUI();
         //System.out.println("ryan");
         System.out.println("ryan");
+
+        System.out.println("Edgar the best");
+
+
     }
 }
