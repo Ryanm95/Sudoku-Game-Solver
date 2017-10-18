@@ -3,6 +3,7 @@ import com.sun.java.swing.action.HelpMenu;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.io.*;
 
 import javax.swing.*;
 
@@ -55,9 +56,8 @@ public class GUI extends JFrame implements ActionListener{
                 new ActionListener() {  // anonymous inner class
                     // Loads new puzzle into program
                     public void actionPerformed(ActionEvent event) {
-                        JOptionPane.showMessageDialog(GUI.this,
-                                "Load First Puzzle",
-                                "Load Puzzle", JOptionPane.PLAIN_MESSAGE);
+                        String fileName = "proj1data1.txt";
+                        readfile(fileName);
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener
@@ -161,5 +161,25 @@ public class GUI extends JFrame implements ActionListener{
         bar.add(fileMenu);
         bar.add(helpMenu);
         bar.add(hintMenu);
+    }
+
+    private void readfile(String filename){
+        String line = null;
+        try {
+            FileReader fileReader = new FileReader(filename);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" + filename + "'");
+        }
+        catch(IOException ex) {
+             ex.printStackTrace();
+        }
     }
 }
