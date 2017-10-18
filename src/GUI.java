@@ -7,26 +7,53 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener{
 
-    private MyJButton sudokuGrid[][];     // 9x9 grid of MyJButtons
+    private MyJButton sudokuGrid[][] = new MyJButton[9][9];     // 9x9 grid of MyJButtons
     private Container container;
-    private GridLayout grid;
+    //private GridLayout grid;
+    private JPanel p[][] = new JPanel[3][3];
 
-    private final int rows = 9;
-    private final int cols = 9;
+//    private final int rows = 9;
+//    private final int cols = 9;
 
     public GUI(){
         super("Sudoku");
-        getContentPane().setLayout(new BorderLayout());
+        //getContentPane().setLayout(new BorderLayout());
 
-        grid = new GridLayout(9,9);
-        container = getContentPane();
-        container.setLayout( grid );
+        //grid = new GridLayout(9,9);
+//        container = getContentPane();
+//        container.setLayout( grid );
+
+        for(int rows = 0; rows <= 8; rows++){
+            for(int col = 0; col <= 8; col++){
+                sudokuGrid[rows][col] = new MyJButton(" ", col, rows, 0, false);
+            }
+        }
+
+        for(int x = 0; x <= 2; x++){
+            for(int y = 0; y <= 2; y++){
+                p[x][y] = new JPanel(new GridLayout(3, 3));
+            }
+        }
+
+        setLayout(new GridLayout(3, 3, 10,10));
+
+        for(int u = 0; u <= 2; u++){
+            for(int i = 0; i <= 2; i++){
+                for(int x = 0; x <= 2; x++) {
+                    for (int y = 0; y <= 2; y++) {
+                        p[u][i].add(sudokuGrid[y + u * 3][x + i * 3]);
+                    }
+                }
+                add(p[u][i]);
+            }
+        }
+
 
         addMenu();  //Adds the menu bar to the window
         setSize( 800, 800 );
         setVisible( true );
 
-        sudokuGrid = new MyJButton[9][9];       // grid of where numbers will be
+        //sudokuGrid = new MyJButton[9][9];       // grid of where numbers will be
     }
 
     public void actionPerformed(ActionEvent e) {
