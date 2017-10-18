@@ -48,6 +48,8 @@ public class GUI extends JFrame implements ActionListener{
         fileMenu.add(loadItem);
         JMenuItem puzzleOne = new JMenuItem("Easy Puzzle 1");
         loadItem.add(puzzleOne);
+        JMenuItem puzzleTwo = new JMenuItem("Easy Puzzle 2");
+        loadItem.add(puzzleTwo);
 
         puzzleOne.addActionListener(
                 new ActionListener() {  // anonymous inner class
@@ -58,6 +60,15 @@ public class GUI extends JFrame implements ActionListener{
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener
+
+        puzzleTwo.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String fileName = "proj1dAta2.txt";
+                        readfile(fileName);
+                    }
+                }
+        );
 
         //set up Store Puzzle submenu item under File
         JMenuItem storeItem = new JMenuItem("Store Puzzle");
