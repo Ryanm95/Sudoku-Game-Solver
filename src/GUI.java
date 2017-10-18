@@ -1,8 +1,5 @@
-import com.sun.java.swing.action.HelpMenu;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import java.io.*;
 
 import javax.swing.*;
@@ -165,6 +162,7 @@ public class GUI extends JFrame implements ActionListener{
 
     private void readfile(String filename){
         String line = null;
+
         try {
             FileReader fileReader = new FileReader(filename);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
