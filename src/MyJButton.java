@@ -2,9 +2,9 @@ import javax.swing.*;
 
 public class MyJButton extends JButton{
 
-        private int col;
-        private int row;
-        private int value;
+        private int col;        // col coordinate
+        private int row;        // row coordinate
+        private int value;      // int value
 
         public MyJButton(String text){
             super(text);

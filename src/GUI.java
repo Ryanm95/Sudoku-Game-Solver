@@ -9,7 +9,6 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener{
 
-    private String values[];         // initial values from the textfile
     private MyJButton sudokuGrid[][];     // 9x9 grid of MyJButtons
     private Container container;
     private GridLayout grid;
@@ -28,6 +27,8 @@ public class GUI extends JFrame implements ActionListener{
         addMenu();  //Adds the menu bar to the window
         setSize( 800, 800 );
         setVisible( true );
+
+        sudokuGrid = new MyJButton[9][9];       // grid of where numbers will be
     }
 
     @Override
@@ -44,15 +45,18 @@ public class GUI extends JFrame implements ActionListener{
         fileMenu.setMnemonic('F');
 
         //set up Load Puzzle submenu item under File
-        JMenuItem loadItem = new JMenuItem("Load Puzzle");
+        JMenu loadItem = new JMenu("Load Puzzle");
         loadItem.setMnemonic('L');
         fileMenu.add(loadItem);
-        loadItem.addActionListener(
+        JMenuItem puzzleOne = new JMenuItem("Easy Puzzle 1");
+        loadItem.add(puzzleOne);
+
+        puzzleOne.addActionListener(
                 new ActionListener() {  // anonymous inner class
                     // Loads new puzzle into program
                     public void actionPerformed(ActionEvent event) {
                         JOptionPane.showMessageDialog(GUI.this,
-                                "Perform action",
+                                "Load First Puzzle",
                                 "Load Puzzle", JOptionPane.PLAIN_MESSAGE);
                     }
                 }  // end anonymous inner class
@@ -62,6 +66,7 @@ public class GUI extends JFrame implements ActionListener{
         JMenuItem storeItem = new JMenuItem("Store Puzzle");
         storeItem.setMnemonic('S');
         fileMenu.add(storeItem);
+        fileMenu.addSeparator();
         storeItem.addActionListener(
                 new ActionListener() {  // anonymous inner class
                     // Loads new puzzle into program
@@ -156,9 +161,5 @@ public class GUI extends JFrame implements ActionListener{
         bar.add(fileMenu);
         bar.add(helpMenu);
         bar.add(hintMenu);
-    }
-
-    public void setInitialBoard(){
-
     }
 }
