@@ -8,6 +8,7 @@ public class MyJButton extends JButton{
         private boolean originalPiece; //
 
         public MyJButton(String text){
+
             super(text);
         }
 
@@ -46,4 +47,6 @@ public class MyJButton extends JButton{
         }
 
         public void setOriginalPiece(boolean value) {this.originalPiece = value;}
+
+        //public void setT
 }
