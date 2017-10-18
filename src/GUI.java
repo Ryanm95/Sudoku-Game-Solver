@@ -17,6 +17,7 @@ public class GUI extends JFrame implements ActionListener{
 
     public GUI(){
         super("Sudoku");
+        getContentPane().setBackground(Color.BLACK);
         //getContentPane().setLayout(new BorderLayout());
 
         //grid = new GridLayout(9,9);
@@ -26,6 +27,8 @@ public class GUI extends JFrame implements ActionListener{
         for(int rows = 0; rows <= 8; rows++){
             for(int col = 0; col <= 8; col++){
                 sudokuGrid[rows][col] = new MyJButton(" ", col, rows, 0, false);
+                sudokuGrid[rows][col].addActionListener(this);
+
             }
         }
 
@@ -56,8 +59,16 @@ public class GUI extends JFrame implements ActionListener{
         //sudokuGrid = new MyJButton[9][9];       // grid of where numbers will be
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
+        MyJButton temp = (MyJButton) event.getSource();
+        int row = temp.getRow();
+        int col = temp.getCol();
+        boolean phase = temp.getOriginalPiece();
 
+        //Window displayed when puzzle is solve
+        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+                    "Col: " + col + "\n" + "Phase: " + phase,
+                    "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     // Creates menu bar and attach it to GUI window
