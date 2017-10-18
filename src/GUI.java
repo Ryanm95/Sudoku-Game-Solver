@@ -20,14 +20,14 @@ public class GUI extends JFrame implements ActionListener{
         getContentPane().setBackground(Color.BLACK);
         //getContentPane().setLayout(new BorderLayout());
 
-        //grid = new GridLayout(9,9);
+//        grid = new GridLayout(9,9);
 //        container = getContentPane();
 //        container.setLayout( grid );
 
         for(int rows = 0; rows <= 8; rows++){
             for(int col = 0; col <= 8; col++){
-                sudokuGrid[rows][col] = new MyJButton(" ", col + 1, rows + 1, 0, false);
-                sudokuGrid[rows][col].addActionListener(this);
+                sudokuGrid[col][rows] = new MyJButton(" ", col + 1, rows + 1, 0, false);
+                sudokuGrid[col][rows].addActionListener(this);
 
             }
         }
