@@ -29,7 +29,6 @@ public class GUI extends JFrame implements ActionListener{
         sudokuGrid = new MyJButton[9][9];       // grid of where numbers will be
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
 
     }
@@ -171,7 +170,7 @@ public class GUI extends JFrame implements ActionListener{
         bar.add(hintMenu);
     }
 
-    private void readfile(String filename){
+    private void readfile(String filename){         // read file selected .txt file
         String line = null;
 
         try {
