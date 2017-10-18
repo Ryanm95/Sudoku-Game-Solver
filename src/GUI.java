@@ -56,10 +56,11 @@ public class GUI extends JFrame implements ActionListener{
         int row = temp.getRow();
         int col = temp.getCol();
         boolean phase = temp.getOriginalPiece();
+        int value = temp.getValue();
 
         //Window displayed when puzzle is solve
         JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-                        "Col: " + col + "\n" + "Phase: " + phase,
+                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value,
                 "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -217,9 +218,9 @@ public class GUI extends JFrame implements ActionListener{
                 col = Integer.parseInt(parts[1]);
                 value = Integer.parseInt(parts[2]);
 
-                //sudokuGrid[row - 1][col -1 ] = new MyJButton(parts[2]);
-                System.out.println(row + " " + col + " " + value);
-                //System.out.println(line);
+                sudokuGrid[col - 1][row - 1].setText(parts[2]);   //updates grid text to new text
+                sudokuGrid[col - 1][row - 1].setValue(value);   //updates grid value  to new value
+                sudokuGrid[col - 1][row - 1].setOriginalPiece(true);  //updates original button to true
 
             }
             bufferedReader.close();
