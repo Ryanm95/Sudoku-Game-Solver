@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener{
     private JPanel p[][] = new JPanel[3][3];
     private final String values[] = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private JButton[] choices = new JButton[10];
-    private int array[][] = new int [9][9];
+    //private int array[][] = new int [9][9];
 
     public GUI(){
         super("Sudoku");
