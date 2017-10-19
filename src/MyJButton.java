@@ -5,7 +5,7 @@ public class MyJButton extends JButton{
         private int col;        // col coordinate
         private int row;        // row coordinate
         private int value;      // int value
-        private boolean originalPiece; //
+        private boolean originalPiece; // a button is default for the puzzle if true
 
         public MyJButton(String text){
 
@@ -32,7 +32,9 @@ public class MyJButton extends JButton{
             return value;
         }
 
-        public boolean getOriginalPiece(){ return originalPiece;}
+        public boolean getOriginalPiece(){
+            return originalPiece;
+        }
 
         public void setCol(int col){        // setters
             this.col = col;

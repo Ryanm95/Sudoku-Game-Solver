@@ -9,10 +9,12 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener{
 
     private MyJButton sudokuGrid[][] = new MyJButton[9][9];     // 9x9 grid of MyJButtons
-    private Container container;
+    //private Container container;
     //private GridLayout grid;
     private JPanel p[][] = new JPanel[3][3];
-    private int array[][] = new int [9][9];
+    private final String values[] = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private JButton[] choices = new JButton[10];
+    //private int array[][] = new int [9][9];
 
     public GUI(){
         super("Sudoku");
@@ -234,12 +236,24 @@ public class GUI extends JFrame implements ActionListener{
         bar.add(hintMenu);
     }
 
+    private void clearBoard(){
+        for(int i = 0; i < 9; ++i){
+            for(int j = 0; j < 9; ++j){
+                sudokuGrid[i][j].setText(" ");
+                sudokuGrid[i][j].setValue(0);
+                sudokuGrid[i][j].setOriginalPiece(false);
+            }
+        }
+    }
+
     private void readfile(String filename){         // read file selected .txt file
         String line = null;
         String[] parts;
         int col = 0;
         int row = 0;
         int value = 0;
+
+        clearBoard();
 
         try {
             FileReader fileReader = new FileReader(filename);
