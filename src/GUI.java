@@ -268,11 +268,9 @@ public class GUI extends JFrame implements ActionListener{
     }
 
     private void readfile(String filename){         // read file selected .txt file
-        String line = null;
+        String line;
         String[] parts;
-        int col = 0;
-        int row = 0;
-        int value = 0;
+        int col, row, value;
 
         clearBoard();
 
