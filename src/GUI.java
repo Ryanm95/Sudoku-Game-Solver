@@ -9,44 +9,25 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener{
 
     private MyJButton sudokuGrid[][] = new MyJButton[9][9];     // 9x9 grid of MyJButtons
-    //private Container container;
-    //private GridLayout grid;
+    private JPanel container = new JPanel(new BorderLayout());
+    private JPanel grid = new JPanel();
+    private JPanel numberOptions = new JPanel();
+
     private JPanel p[][] = new JPanel[3][3];
     private final String values[] = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    private JButton[] choices = new JButton[10];
+    private MyJButton[] choices;
     //private int array[][] = new int [9][9];
 
     public GUI(){
         super("Sudoku");
         getContentPane().setBackground(Color.gray);
 
-        for(int rows = 0; rows <= 8; rows++){       // makes buttons
-            for(int col = 0; col <= 8; col++){
-                sudokuGrid[col][rows] = new MyJButton(" ", col + 1, rows + 1, 0, false);
-                sudokuGrid[col][rows].addActionListener(this);
-            }
-        }
+        setUpSudokuGrid();
+        setUpChoiceButtons();
+        container.add(grid, BorderLayout.WEST);
+        container.add(numberOptions);
 
-        for(int x = 0; x <= 2; x++){        // make panel for grid to sit on
-            for(int y = 0; y <= 2; y++){
-                p[x][y] = new JPanel(new GridLayout(3, 3));
-            }
-        }
-
-        setLayout(new GridLayout(3, 3, 10,10));
-
-
-        for(int i = 0; i <= 2; i++){            // builds  the board
-            for(int u = 0; u <= 2; u++){
-                for(int x = 0; x <= 2; x++) {
-                    for (int y = 0; y <= 2; y++) {
-                        p[u][i].add(sudokuGrid[y + u * 3][x + i * 3]);
-                    }
-                }
-                add(p[u][i]);
-            }
-        }
-
+        add(container);
 
         addMenu();  //Adds the menu bar to the window
         setSize( 800, 800 );
@@ -234,6 +215,46 @@ public class GUI extends JFrame implements ActionListener{
         bar.add(fileMenu);
         bar.add(helpMenu);
         bar.add(hintMenu);
+    }
+
+    private void setUpChoiceButtons(){
+        choices = new MyJButton[values.length];
+        for(int i = 0; i < values.length; ++i){
+            choices[i] = new MyJButton(values[i]);
+            choices[i].setValue(i);
+            choices[i].addActionListener(this);
+            choices[i].setPreferredSize(new Dimension(50,70));
+            numberOptions.add(choices[i]);
+        }
+    }
+
+    private void setUpSudokuGrid(){
+        for(int rows = 0; rows <= 8; rows++){       // makes buttons
+            for(int col = 0; col <= 8; col++){
+                sudokuGrid[col][rows] = new MyJButton(" ", col + 1, rows + 1, 0, false);
+                sudokuGrid[col][rows].addActionListener(this);
+            }
+        }
+
+        for(int x = 0; x <= 2; x++){        // make panel for grid to sit on
+            for(int y = 0; y <= 2; y++){
+                p[x][y] = new JPanel(new GridLayout(3, 3));
+            }
+        }
+
+        grid.setLayout(new GridLayout(3, 3, 10,10));
+
+
+        for(int i = 0; i <= 2; i++){            // builds  the board
+            for(int u = 0; u <= 2; u++){
+                for(int x = 0; x <= 2; x++) {
+                    for (int y = 0; y <= 2; y++) {
+                        p[u][i].add(sudokuGrid[y + u * 3][x + i * 3]);
+                    }
+                }
+                grid.add(p[u][i]);
+            }
+        }
     }
 
     private void clearBoard(){
