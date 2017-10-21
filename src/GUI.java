@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener{
     private JPanel numberOptions = new JPanel();
 
     private JPanel p[][] = new JPanel[3][3];
-    private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", " "};
+    private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "X"};
     private MyJButton[] choices;
 
     public GUI(){
@@ -61,23 +61,18 @@ public class GUI extends JFrame implements ActionListener{
         loadItem.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource() == new JMenuItem("Load Puzzle")) {
-                            JFileChooser fc = new JFileChooser();
-                            int i = fc.showOpenDialog(loadItem);
-                            if (i == JFileChooser.APPROVE_OPTION) {
-                                File f = fc.getSelectedFile();
-                                //String filepath = f.getPath();
-                                try {
-                                    BufferedReader br = new BufferedReader(new FileReader(f));
-                                    String s1= "", s2 = "";
-                                    while ((s1 = br.readLine()) != null) {
-                                        s2 += s1 + "\n";
-                                    }
-                                    //ta.setText(s2);
-                                    //br.close();
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
+                        JFileChooser fc = new JFileChooser();
+                        int i = fc.showOpenDialog(null);
+                        if (i == JFileChooser.APPROVE_OPTION) {
+                            File f = fc.getSelectedFile();
+                            try {
+                                BufferedReader br = new BufferedReader(new FileReader(f));
+                                String s1 = "";
+                                while ((s1 = br.readLine()) != null) {
+                                    readfile(f);
                                 }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
                         }
                     }
@@ -280,7 +275,7 @@ public class GUI extends JFrame implements ActionListener{
                                 "How to Play", JOptionPane.PLAIN_MESSAGE);
     }
 
-    private void readfile(String filename){         // read file selected .txt file
+    private void readfile(File filename){         // read file selected .txt file
         String line;
         String[] parts;
         int col, row, value;
