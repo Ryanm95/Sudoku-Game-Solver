@@ -209,7 +209,7 @@ public class GUI extends JFrame implements ActionListener{
         single.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-
+//
                     }
                 }
         );
