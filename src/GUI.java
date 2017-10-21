@@ -16,13 +16,12 @@ public class GUI extends JFrame implements ActionListener{
     private JPanel p[][] = new JPanel[3][3];
     private final String values[] = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private MyJButton[] choices;
-    //private int array[][] = new int [9][9];
 
     public GUI(){
         super("Sudoku");
         getContentPane().setBackground(Color.gray);
 
-        setUpSudokuGrid();
+        setUpSudokuGrid();              //
         setUpChoiceButtons();
         container.add(grid, BorderLayout.WEST);
         container.add(numberOptions);
@@ -155,9 +154,7 @@ public class GUI extends JFrame implements ActionListener{
         helpItem.addActionListener(
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
-                        JOptionPane.showMessageDialog(GUI.this,
-                                "ADD rules",
-                                "How to Play", JOptionPane.PLAIN_MESSAGE);
+                        howToPlay();
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener
@@ -169,9 +166,7 @@ public class GUI extends JFrame implements ActionListener{
         interfaceItem.addActionListener(
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
-                        JOptionPane.showMessageDialog(GUI.this,
-                                "add how to use interface ",
-                                "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
+                        howToUseGUI();
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener
@@ -196,18 +191,58 @@ public class GUI extends JFrame implements ActionListener{
         fileMenu.setMnemonic('h');
 
         //set up Check on Fill  submenu item under hint
-        JMenuItem checkItem = new JMenuItem("Check on Fill");
-        checkItem.setMnemonic('c');
+        JCheckBoxMenuItem checkItem = new JCheckBoxMenuItem("Check on Fill");
+        //checkItem.setMnemonic('c');
         hintMenu.add(checkItem);
         checkItem.addActionListener(
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
-                        JOptionPane.showMessageDialog(GUI.this,
-                                "add toggle",
-                                "Check on Fill", JOptionPane.PLAIN_MESSAGE);
+//                        JOptionPane.showMessageDialog(GUI.this,
+//                                "add toggle",
+//                                "Check on Fill", JOptionPane.PLAIN_MESSAGE);
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener\
+
+        JMenuItem single = new JMenuItem("Single");
+        hintMenu.add(single);
+        single.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+
+                    }
+                }
+        );
+
+        JMenuItem hiddenSingle = new JMenuItem("Hidden Single");
+        hintMenu.add(hiddenSingle);
+        hiddenSingle.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+
+                    }
+                }
+        );
+
+        JMenuItem lockedCandidate = new JMenuItem("Locked Candidate");
+        hintMenu.add(lockedCandidate);
+        lockedCandidate.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+
+                    }
+                }
+        );
+
+        JMenuItem nakedPairs = new JMenuItem("Naked Pairs");
+        hintMenu.add(nakedPairs);
+        nakedPairs.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+
+                    }
+                }
+        );
 
         // Makes bar and adds all buttons to it
         JMenuBar bar = new JMenuBar();
@@ -267,6 +302,15 @@ public class GUI extends JFrame implements ActionListener{
         }
     }
 
+    private void howToPlay(){
+        JOptionPane.showMessageDialog(GUI.this,
+                                "Sudoku is a puzzle that often uses a 9x9 grid of 81 cells. The grid is divided into rows, columns\n" +
+                                        "and boxes. The boxes are 3x3 sub-grids of 9 cells. Thus each row, column and box contains 9\n" +
+                                        "cells. The object is the fill in the numbers from 1 to 9 so that each row, column and box contain\n" +
+                                        "each number from 1 to 9 only once",
+                                "How to Play", JOptionPane.PLAIN_MESSAGE);
+    }
+
     private void readfile(String filename){         // read file selected .txt file
         String line;
         String[] parts;
@@ -298,5 +342,18 @@ public class GUI extends JFrame implements ActionListener{
         catch(IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void howToUseGUI(){
+        JOptionPane.showMessageDialog(GUI.this,
+                "File:\n   Click Load Puzzle to load a puzzle from your machine\n" +
+                         "   Click Store Puzzle to save current progress on a puzzle to your machine\n" +
+                         "   Click Exit to exit the program\n" +
+                         "Hint:\n   Click Check On Fill to have program check if you made a valid move\n" +
+                         "   Click Single to fill in one open space\n" +
+                         "   Click Hidden Single to fill in one open space\n" +
+                         "   Click Locked Candidate to narrow down the number of values for that cell\n" +
+                         "   Click Naked Pairs to narrow down the number of values for that cell\n",
+                    "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
     }
 }
