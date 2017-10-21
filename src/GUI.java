@@ -55,62 +55,31 @@ public class GUI extends JFrame implements ActionListener{
         fileMenu.setMnemonic('F');
 
         //set up Load Puzzle submenu item under File
-        JMenu loadItem = new JMenu("Load Puzzle");
+        JMenuItem loadItem = new JMenuItem("Load Puzzle");
         loadItem.setMnemonic('L');
         fileMenu.add(loadItem);
-        JMenuItem puzzleOne = new JMenuItem("Puzzle 1 (Easy)");
-        loadItem.add(puzzleOne);
-        JMenuItem puzzleTwo = new JMenuItem("Puzzle 2 (Easy)");
-        loadItem.add(puzzleTwo);
-        JMenuItem puzzleThree = new JMenuItem("Puzzle 3 (Medium)");
-        loadItem.add(puzzleThree);
-        JMenuItem puzzleFour = new JMenuItem("Puzzle 4 (Hard)");
-        loadItem.add(puzzleFour);
-        JMenuItem puzzleFive = new JMenuItem("Puzzle 5 (Hard)");
-        loadItem.add(puzzleFive);
-
-        puzzleOne.addActionListener(
-                new ActionListener() {  // anonymous inner class
-                    // Loads new puzzle into program
-                    public void actionPerformed(ActionEvent event) {
-                        String fileName = "proj3data1.txt";
-                        readfile(fileName);
-                    }
-                }  // end anonymous inner class
-        ); // end call to addActionListener
-
-        puzzleTwo.addActionListener(
+        loadItem.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        String fileName = "proj3data2.txt";
-                        readfile(fileName);
-                    }
-                }
-        );
-
-        puzzleThree.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String fileName = "proj3data3.txt";
-                        readfile(fileName);
-                    }
-                }
-        );
-
-        puzzleFour.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String fileName = "proj3data4.txt";
-                        readfile(fileName);
-                    }
-                }
-        );
-
-        puzzleFive.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String fileName = "proj3data5.txt";
-                        readfile(fileName);
+                        if (e.getSource() == new JMenuItem("Load Puzzle")) {
+                            JFileChooser fc = new JFileChooser();
+                            int i = fc.showOpenDialog(loadItem);
+                            if (i == JFileChooser.APPROVE_OPTION) {
+                                File f = fc.getSelectedFile();
+                                //String filepath = f.getPath();
+                                try {
+                                    BufferedReader br = new BufferedReader(new FileReader(f));
+                                    String s1= "", s2 = "";
+                                    while ((s1 = br.readLine()) != null) {
+                                        s2 += s1 + "\n";
+                                    }
+                                    //ta.setText(s2);
+                                    //br.close();
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 }
         );
@@ -258,7 +227,7 @@ public class GUI extends JFrame implements ActionListener{
             choices[i] = new MyJButton(values[i]);
             choices[i].setValue(i);
             choices[i].addActionListener(this);
-            choices[i].setPreferredSize(new Dimension(50,70));
+            choices[i].setPreferredSize(new Dimension(50,60));
             numberOptions.add(choices[i]);
         }
     }

@@ -48,5 +48,7 @@ public class MyJButton extends JButton{
             this.value = value;
         }
 
-        public void setOriginalPiece(boolean value) {this.originalPiece = value;}
+        public void setOriginalPiece(boolean value) {
+            this.originalPiece = value;
+        }
 }
