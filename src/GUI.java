@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener{
     private JPanel numberOptions = new JPanel();
 
     private JPanel p[][] = new JPanel[3][3];
-    private final String values[] = {" ", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", " "};
     private MyJButton[] choices;
 
     public GUI(){
