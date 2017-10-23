@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.lang.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -34,16 +35,25 @@ public class GUI extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent event) {
-        MyJButton temp = (MyJButton) event.getSource();
-        int row = temp.getRow();
-        int col = temp.getCol();
-        boolean phase = temp.getOriginalPiece();
-        int value = temp.getValue();
 
-        //Window displayed when puzzle is solve
-        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value,
-                "Position", JOptionPane.PLAIN_MESSAGE);
+        MyJButton click = (MyJButton) event.getSource();
+        MyJButton temp;
+        int value;
+
+//        if(click.getChoiceButtons() == true) {
+//            temp = new MyJButton()
+//        }
+//        int row = temp.getRow();
+//        int col = temp.getCol();
+//        boolean phase = temp.getOriginalPiece();
+//        int value = temp.getValue();
+
+
+
+//        //Window displayed when puzzle is solve
+//        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+//                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value,
+//                "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     // Creates menu bar and attach it to GUI window
@@ -223,19 +233,29 @@ public class GUI extends JFrame implements ActionListener{
 
     private void setUpChoiceButtons(){
         choices = new MyJButton[values.length];
+
         for(int i = 0; i < values.length; ++i){
             choices[i] = new MyJButton(values[i]);
-            choices[i].setValue(i);
+            choices[i].setValue(i + 1);
+            choices[i].setChoiceButtons(true);
             choices[i].addActionListener(this);
-            choices[i].setPreferredSize(new Dimension(50,60));
+            choices[i].setPreferredSize(new Dimension(55,60));
             numberOptions.add(choices[i]);
+        }
+
+        try {
+            Image img = ImageIO.read(getClass().getResource("eraser.png"));
+            choices[values.length -1 ].setIcon(new ImageIcon(img));
+            choices[values.length -1 ].setHorizontalTextPosition(SwingConstants.CENTER);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void setUpSudokuGrid(){
         for(int rows = 0; rows <= 8; rows++){       // makes buttons
             for(int col = 0; col <= 8; col++){
-                sudokuGrid[col][rows] = new MyJButton(" ", col + 1, rows + 1, 0, false);
+                sudokuGrid[col][rows] = new MyJButton(" ", col + 1, rows + 1, 0, false, false);
                 sudokuGrid[col][rows].addActionListener(this);
             }
         }
