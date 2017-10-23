@@ -9,7 +9,7 @@ public class MyJButton extends JButton{
         private boolean choiceButtons;
 
         public MyJButton(String text){
-
+            //
             super(text);
         }
 
