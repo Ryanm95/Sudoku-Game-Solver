@@ -67,4 +67,8 @@ public class MyJButton extends JButton{
     public void setChoiceButtons(boolean choiceButtons){
         this.choiceButtons = choiceButtons;
     }
+
+    public void addCandidate(int number){
+        candidateList.add(number);
+    }
 }
