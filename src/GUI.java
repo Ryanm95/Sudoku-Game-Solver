@@ -17,6 +17,9 @@ public class GUI extends JFrame implements ActionListener{
     private JPanel p[][] = new JPanel[3][3];
     private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", ""};
     private MyJButton[] choices;
+    private int value;
+    private boolean choiceClickedFirst = false;
+    private boolean eraserClicked = false;
 
     public GUI(){
         super("Sudoku");
@@ -37,9 +40,33 @@ public class GUI extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent event) {
 
         MyJButton click = (MyJButton) event.getSource();
-        MyJButton temp;
-        int value;
 
+        for(int i = 0; i < values.length-1; ++i){
+            if(event.getSource() == choices[i]){        // button we clicked was an number choice
+                value = choices[i].getValue();
+                choiceClickedFirst = true;
+                eraserClicked = false;
+                //System.out.println(value);
+            }
+        }
+        if(event.getSource() == choices[9]){
+            value = 0;
+            eraserClicked = true;
+            //System.out.println("Clicked");
+        }
+        if(click.getOriginalPiece() == false && click.getChoiceButtons() == false && choiceClickedFirst == true) {      // in sudoku grid... not original piece
+            if (eraserClicked == true) {      // TODO: check if erase is reseting button
+                //click.setValue(value);
+                click.setText(" ");
+
+            } else {
+                //click.setValue(value);
+                // System.out.println(value);
+                click.setText(Integer.toString(value));
+            }
+            click.setValue(value);
+            System.out.println(click.getValue());
+        }
 //        if(click.getChoiceButtons() == true) {
 //            temp = new MyJButton()
 //        }
@@ -228,6 +255,7 @@ public class GUI extends JFrame implements ActionListener{
 
     private void setUpChoiceButtons(){
         choices = new MyJButton[values.length];
+
 
         for(int i = 0; i < values.length; ++i){
             choices[i] = new MyJButton(values[i]);
