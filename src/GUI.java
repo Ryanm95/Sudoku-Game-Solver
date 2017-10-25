@@ -20,6 +20,7 @@ public class GUI extends JFrame implements ActionListener{
     private int value;
     private boolean choiceClickedFirst = false;
     private boolean eraserClicked = false;
+    private boolean checkOnFill;
     private JTextField filename = new JTextField(), dir = new JTextField();
     final JFileChooser fc = new JFileChooser();
 
@@ -208,7 +209,11 @@ public class GUI extends JFrame implements ActionListener{
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
                         if(checkItem.getState()){
+                            checkOnFill = true;
                             // TODO: if checked then see if number is in a valid spot
+                        }
+                        else{
+                            checkOnFill = false;
                         }
                     }
                 }  // end anonymous inner class
