@@ -20,6 +20,9 @@ public class GUI extends JFrame implements ActionListener{
     private int value;
     private boolean choiceClickedFirst = false;
     private boolean eraserClicked = false;
+    private JTextField filename = new JTextField(), dir = new JTextField();
+    final JFileChooser fc = new JFileChooser();
+
 
     public GUI(){
         super("Sudoku");
@@ -125,9 +128,28 @@ public class GUI extends JFrame implements ActionListener{
                 new ActionListener() {  // anonymous inner class
                     // Loads new puzzle into program
                     public void actionPerformed(ActionEvent event) {
-                        JOptionPane.showMessageDialog(GUI.this,
-                                "Perform action",
-                                "Store Puzzle", JOptionPane.PLAIN_MESSAGE);
+
+                        final JFileChooser SaveAs = new JFileChooser();
+                        int actionDialog = SaveAs.showSaveDialog(null);
+                        if (actionDialog != JFileChooser.APPROVE_OPTION) {
+                            return;
+                        }
+
+                        File f = new File(SaveAs.getSelectedFile() +".txt");
+                        try{
+                            FileWriter fw = new FileWriter(f);
+                            for(int i = 1; i < 10; i++) {
+                                for (int j = 1; j < 10; j++) {
+                                    if(sudokuGrid[i -1][j - 1].getValue() != 0){
+                                        fw.write(Integer.toString(j) + " " + Integer.toString(i) +
+                                                      " " + Integer.toString(sudokuGrid[i -1][j -1].getValue()) + "\n");
+                                    }
+                                }
+                            }
+                            fw.close();
+                        }catch(Exception ex){
+
+                        }
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener
@@ -316,11 +338,11 @@ public class GUI extends JFrame implements ActionListener{
 
     private void howToPlay(){
         JOptionPane.showMessageDialog(GUI.this,
-                                "Sudoku is a puzzle that often uses a 9x9 grid of 81 cells. The grid is divided into rows, columns\n" +
-                                        "and boxes. The boxes are 3x3 sub-grids of 9 cells. Thus each row, column and box contains 9\n" +
-                                        "cells. The object is the fill in the numbers from 1 to 9 so that each row, column and box contain\n" +
-                                        "each number from 1 to 9 only once",
-                                "How to Play", JOptionPane.PLAIN_MESSAGE);
+                "Sudoku is a puzzle that often uses a 9x9 grid of 81 cells. The grid is divided into rows, columns\n" +
+                        "and boxes. The boxes are 3x3 sub-grids of 9 cells. Thus each row, column and box contains 9\n" +
+                        "cells. The object is the fill in the numbers from 1 to 9 so that each row, column and box contain\n" +
+                        "each number from 1 to 9 only once",
+                "How to Play", JOptionPane.PLAIN_MESSAGE);
     }
 
     private void readfile(File filename){         // read file selected .txt file
@@ -359,13 +381,13 @@ public class GUI extends JFrame implements ActionListener{
     private void howToUseGUI(){
         JOptionPane.showMessageDialog(GUI.this,
                 "File:\n   Click Load Puzzle to load a puzzle from your machine\n" +
-                         "   Click Store Puzzle to save current progress on a puzzle to your machine\n" +
-                         "   Click Exit to exit the program\n" +
-                         "Hint:\n   Click Check On Fill to have program check if you made a valid move\n" +
-                         "   Click Single to fill in one open space\n" +
-                         "   Click Hidden Single to fill in one open space\n" +
-                         "   Click Locked Candidate to narrow down the number of values for that cell\n" +
-                         "   Click Naked Pairs to narrow down the number of values for that cell\n",
-                    "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
+                        "   Click Store Puzzle to save current progress on a puzzle to your machine\n" +
+                        "   Click Exit to exit the program\n" +
+                        "Hint:\n   Click Check On Fill to have program check if you made a valid move\n" +
+                        "   Click Single to fill in one open space\n" +
+                        "   Click Hidden Single to fill in one open space\n" +
+                        "   Click Locked Candidate to narrow down the number of values for that cell\n" +
+                        "   Click Naked Pairs to narrow down the number of values for that cell\n",
+                "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
     }
 }
