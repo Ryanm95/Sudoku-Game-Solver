@@ -1,5 +1,7 @@
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MyJButton extends JButton{
 
@@ -8,7 +10,7 @@ public class MyJButton extends JButton{
     private int value;      // int value
     private boolean originalPiece; // a button is default for the puzzle if true
     private boolean choiceButtons;
-    private ArrayList<Integer> candidateList = new ArrayList(9);
+    private ArrayList candidateList = new ArrayList(Arrays.asList(1,2,3,4,5,6,7,8,9));
 
     public MyJButton(String text){
         //
@@ -68,7 +70,18 @@ public class MyJButton extends JButton{
         this.choiceButtons = choiceButtons;
     }
 
-    public void addCandidate(int number){
+    public void addCandidate(int number){       // adds number to array
         candidateList.add(number);
+    }
+
+    public boolean deleteCandidate(int number){        // delete number
+        int index = candidateList.indexOf(number);  // gets index of number being searched for
+
+        if(index != -1) {
+            candidateList.remove(index);                // removes that index from array
+            return true;                                // if found and deleted... return true
+        }
+        // not found so not deleted... return false
+        return false;
     }
 }

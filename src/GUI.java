@@ -208,7 +208,7 @@ public class GUI extends JFrame implements ActionListener{
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
                         if(checkItem.getState()){
-                            //System.out.println("Is checked");
+                            // TODO: if checked then see if number is in a valid spot
                         }
                     }
                 }  // end anonymous inner class
