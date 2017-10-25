@@ -58,28 +58,15 @@ public class GUI extends JFrame implements ActionListener{
             //System.out.println("Clicked");
         }
         if(click.getOriginalPiece() == false && click.getChoiceButtons() == false && choiceClickedFirst == true) {      // in sudoku grid... not original piece
-            if (eraserClicked == true) {      // TODO: check if erase is reseting button
-                //click.setValue(value);
+            if (eraserClicked == true) {
                 click.setText(" ");
 
-            } else {
-                //click.setValue(value);
-                // System.out.println(value);
+            }
+            else {
                 click.setText(Integer.toString(value));
             }
             click.setValue(value);
-            System.out.println(click.getValue());
         }
-//        if(click.getChoiceButtons() == true) {
-//            temp = new MyJButton()
-//        }
-//        int row = temp.getRow();
-//        int col = temp.getCol();
-//        boolean phase = temp.getOriginalPiece();
-//        int value = temp.getValue();
-
-
-
 //        //Window displayed when puzzle is solve
 //        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
 //                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value,
@@ -220,9 +207,9 @@ public class GUI extends JFrame implements ActionListener{
         checkItem.addActionListener(
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
-//                        JOptionPane.showMessageDialog(GUI.this,
-//                                "add toggle",
-//                                "Check on Fill", JOptionPane.PLAIN_MESSAGE);
+                        if(checkItem.getState()){
+                            //System.out.println("Is checked");
+                        }
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener\
