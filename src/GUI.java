@@ -130,7 +130,7 @@ public class GUI extends JFrame implements ActionListener{
                                 for (int j = 1; j < 10; j++) {
                                     if(sudokuGrid[i -1][j - 1].getValue() != 0){
                                         fw.write(Integer.toString(j) + " " + Integer.toString(i) +
-                                                      " " + Integer.toString(sudokuGrid[i -1][j -1].getValue()) + "\n");
+                                                " " + Integer.toString(sudokuGrid[i -1][j -1].getValue()) + "\n");
                                     }
                                 }
                             }
@@ -269,7 +269,6 @@ public class GUI extends JFrame implements ActionListener{
 
     private void setUpChoiceButtons(){
         choices = new MyJButton[values.length];
-
 
         for(int i = 0; i < values.length; ++i){
             choices[i] = new MyJButton(values[i]);
