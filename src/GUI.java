@@ -60,6 +60,15 @@ public class GUI extends JFrame implements ActionListener{
             if (eraserClicked == true) {
                 click.setText(" ");
                 click.setValue(value);
+                for(int i = 1; i < 10; i++){
+                    for(int j = 1; j < 10; j++){
+                        sudokuGrid[i][j].reinitalizeCandidateList();
+                        checkRow(i, sudokuGrid[i][j].getValue());
+                        checkCol(j, sudokuGrid[i][j].getValue());
+                    }
+                }
+                checkGrids();
+
             }
             else {
                 if(checkOnFill) {
@@ -67,22 +76,29 @@ public class GUI extends JFrame implements ActionListener{
                     if(candidate.contains(value)) {
                         click.setText(Integer.toString(value));
                         click.setValue(value);
+                        for(int i = 1; i < 10; i++){
+                            for(int j = 1; j < 10; j++){
+                                checkRow(i, value);
+                                checkCol(j, value);
+                            }
+                        }
                     }
                     else{
-                        int row = click.getRow();
-                        int col = click.getCol();
-                        boolean phase = click.getOriginalPiece();
-                        int value = click.getValue();
-                        ArrayList c = click.getCandidateList();
-                        //Window displayed when puzzle is solve
-                        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-                                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
-                                "Position", JOptionPane.PLAIN_MESSAGE);
+                        //Window displayed when digit can't be place at this position
+                        JOptionPane.showMessageDialog(this,
+                                "Can't place digit at current position.",
+                                "Error", JOptionPane.PLAIN_MESSAGE);
                     }
                 }
                 else{
                     click.setText(Integer.toString(value));
                     click.setValue(value);
+                    for(int i = 1; i < 10; i++){
+                        for(int j = 1; j < 10; j++){
+                            checkRow(i, value);
+                            checkCol(j, value);
+                        }
+                    }
                 }
             }
         }
@@ -377,15 +393,7 @@ public class GUI extends JFrame implements ActionListener{
                 checkRow(row, value);
                 checkCol(col, value);
             }
-            checkGrid1();
-            checkGrid2();
-            checkGrid3();
-            checkGrid4();
-            checkGrid5();
-            checkGrid6();
-            checkGrid7();
-            checkGrid8();
-            checkGrid9();
+            checkGrids();
 
             bufferedReader.close();
         }
@@ -421,6 +429,18 @@ public class GUI extends JFrame implements ActionListener{
         for(int i = 0; i < 9; i++){
             sudokuGrid[col - 1][i].deleteCandidate(value);
         }
+    }
+
+    private void checkGrids(){
+        checkGrid1();
+        checkGrid2();
+        checkGrid3();
+        checkGrid4();
+        checkGrid5();
+        checkGrid6();
+        checkGrid7();
+        checkGrid8();
+        checkGrid9();
     }
 
     private void checkGrid1(){
