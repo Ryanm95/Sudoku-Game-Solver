@@ -59,17 +59,28 @@ public class GUI extends JFrame implements ActionListener{
         }
         if(click.getOriginalPiece() == false && click.getChoiceButtons() == false && choiceClickedFirst == true) {      // in sudoku grid... not original piece
             if (eraserClicked == true) {
-                click.setText(" ");
-                click.setValue(value);
-                for(int i = 1; i < 10; i++){
-                    for(int j = 1; j < 10; j++){
-                        sudokuGrid[i-1][j-1].reinitalizeCandidateList();
-                        checkRow(i, sudokuGrid[i-1][j-1].getValue());
-                        checkCol(j, sudokuGrid[i-1][j-1].getValue());
+                if (click.getValue() != 0) {
+                    click.setText(" ");
+                    click.setValue(value);
+                    for (int i = 1; i < 10; i++) {
+                        for (int j = 1; j < 10; j++) {
+                            sudokuGrid[i - 1][j - 1].reinitalizeCandidateList();
+                        }
                     }
+                    for (int i = 1; i < 10; i++) {
+                        for (int j = 1; j < 10; j++) {
+                            checkRow(i, sudokuGrid[j - 1][i - 1].getValue());
+                            checkCol(j, sudokuGrid[j - 1][i - 1].getValue());
+                        }
+                    }
+                    checkGrids();
                 }
-                checkGrids();
-
+                else{
+                    //Window displayed when digit can't be place at this position
+                    JOptionPane.showMessageDialog(this,
+                            "Can't erase empty cell.",
+                            "Error", JOptionPane.PLAIN_MESSAGE);
+                }
             }
             else {
                 if(checkOnFill) {
@@ -77,12 +88,8 @@ public class GUI extends JFrame implements ActionListener{
                     if(candidate.contains(value)) {
                         click.setText(Integer.toString(value));
                         click.setValue(value);
-                        for(int i = 1; i < 10; i++){
-                            for(int j = 1; j < 10; j++){
-                                checkRow(i, value);
-                                checkCol(j, value);
-                            }
-                        }
+                        checkRow(click.getRow(), value);
+                        checkCol(click.getCol(), value);
                         checkGrids();
                     }
                     else{
@@ -95,12 +102,8 @@ public class GUI extends JFrame implements ActionListener{
                 else{
                     click.setText(Integer.toString(value));
                     click.setValue(value);
-                    for(int i = 1; i < 10; i++){
-                        for(int j = 1; j < 10; j++){
-                            checkRow(i, value);
-                            checkCol(j, value);
-                        }
-                    }
+                    checkRow(click.getRow(), value);
+                    checkCol(click.getCol(), value);
                     checkGrids();
                 }
             }
@@ -298,6 +301,16 @@ public class GUI extends JFrame implements ActionListener{
                 }
         );
 
+        JMenuItem solve = new JMenuItem("Solve Puzzle");
+        hintMenu.add(solve);
+        solve.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent event) {
+
+                    }
+                }
+        );
+
         // Makes bar and adds all buttons to it
         JMenuBar bar = new JMenuBar();
         setJMenuBar(bar);
@@ -442,6 +455,10 @@ public class GUI extends JFrame implements ActionListener{
                 }
             }
         }
+        return false;
+    }
+
+    private boolean hiddenSingle(){
         return false;
     }
 
