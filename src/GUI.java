@@ -21,7 +21,7 @@ public class GUI extends JFrame implements ActionListener{
     private int value;
     private boolean choiceClickedFirst = false;
     private boolean eraserClicked = false;
-    private boolean checkOnFill;
+    private boolean checkOnFill = false;
 
     public GUI(){
         super("Sudoku");
@@ -59,23 +59,42 @@ public class GUI extends JFrame implements ActionListener{
         if(click.getOriginalPiece() == false && click.getChoiceButtons() == false && choiceClickedFirst == true) {      // in sudoku grid... not original piece
             if (eraserClicked == true) {
                 click.setText(" ");
-
+                click.setValue(value);
             }
             else {
-                click.setText(Integer.toString(value));
+                if(checkOnFill) {
+                    ArrayList candidate = click.getCandidateList();
+                    if(candidate.contains(value)) {
+                        click.setText(Integer.toString(value));
+                        click.setValue(value);
+                    }
+                    else{
+                        int row = click.getRow();
+                        int col = click.getCol();
+                        boolean phase = click.getOriginalPiece();
+                        int value = click.getValue();
+                        ArrayList c = click.getCandidateList();
+                        //Window displayed when puzzle is solve
+                        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+                                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
+                                "Position", JOptionPane.PLAIN_MESSAGE);
+                    }
+                }
+                else{
+                    click.setText(Integer.toString(value));
+                    click.setValue(value);
+                }
             }
-            click.setValue(value);
         }
-        //TODO change to print when check-fill in on
-        int row = click.getRow();
-        int col = click.getCol();
-        boolean phase = click.getOriginalPiece();
-        int value = click.getValue();
-        ArrayList c = click.getCandidateList();
-        //Window displayed when puzzle is solve
-        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
-                "Position", JOptionPane.PLAIN_MESSAGE);
+//        int row = click.getRow();
+//        int col = click.getCol();
+//        boolean phase = click.getOriginalPiece();
+//        int value = click.getValue();
+//        ArrayList c = click.getCandidateList();
+//        //Window displayed when puzzle is solve
+//        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+//                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
+//                "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     // Creates menu bar and attach it to GUI window
@@ -212,13 +231,7 @@ public class GUI extends JFrame implements ActionListener{
         checkItem.addActionListener(
                 new ActionListener(){  // anonymous inner class
                     public void actionPerformed(ActionEvent event){
-                        if(checkItem.getState()){
-                            checkOnFill = true;
-                            // TODO: if checked then see if number is in a valid spot
-                        }
-                        else{
-                            checkOnFill = false;
-                        }
+                        checkOnFill = !checkOnFill;
                     }
                 }  // end anonymous inner class
         ); // end call to addActionListener\
@@ -397,6 +410,7 @@ public class GUI extends JFrame implements ActionListener{
                         "   Click Naked Pairs to narrow down the number of values for that cell\n",
                 "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
     }
+
     private void checkRow(int row, int value){
         for(int i = 0; i < 9; i++){
             sudokuGrid[i][row - 1].deleteCandidate(value);
