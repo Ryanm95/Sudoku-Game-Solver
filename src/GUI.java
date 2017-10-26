@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.lang.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -276,8 +277,7 @@ public class GUI extends JFrame implements ActionListener{
         hiddenSingle.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-
-
+                        hiddenSingle();
                     }
                 }
         );
@@ -459,10 +459,49 @@ public class GUI extends JFrame implements ActionListener{
         return false;
     }
 
-    private boolean hiddenSingle(){
+    private void hiddenSingle(){
+        int col = 0, row = 0, biggest = 0;
+        // grid 1
+        for(int i = 0; i < 3; ++i){
+            for(int j = 0; j < 3; ++j){
+                if(biggest < sudokuGrid[i][j].getCandidateList().size()){
+                    biggest = sudokuGrid[i][j].getCandidateList().size();       // update biggest candidate size
+                    col = i;
+                    row = j;
+                }
+            }
+        }
+        ArrayList temp = new ArrayList(sudokuGrid[col][row].getCandidateList());        // make a copy of candidate list
+
+        for(int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if(sudokuGrid[i][j].getValue() == 0 && i != col && j != row){       // only empty cells and not biggest CL
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){        // traverse CL to delete from temp
+                        int num = (int )sudokuGrid[i][j].getCandidateList().get(a);       // gets number from CL
+                        if(temp.contains(num)){       // returns true if in it
+                            int index = temp.indexOf(num);  // gets index of number being searched for
+                            temp.remove(index);                // removes that index from array
+                        }
+                    }
+                }
+            }
+        }
+        sudokuGrid[col][row].getCandidateList().clear();
+        sudokuGrid[col][row].getCandidateList().add(temp.get(0));
+
+        int value = (int) sudokuGrid[col][row].getCandidateList().get(0);       // get value of candidate
+        sudokuGrid[col][row].setValue(value);                   // set value
+        sudokuGrid[col][row].setText(Integer.toString(value));      // set text
+
+        for(int i = 1; i < 10; i++){
+            for(int j = 1; j < 10; j++){
+                checkRow(i, value);
+                checkCol(j, value);
+            }
+        }
+        checkGrids();
 
 
-        return false;
     }
 
     private void checkRow(int row, int value){
