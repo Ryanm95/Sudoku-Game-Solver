@@ -105,15 +105,15 @@ public class GUI extends JFrame implements ActionListener{
                 }
             }
         }
-//        int row = click.getRow();
-//        int col = click.getCol();
-//        boolean phase = click.getOriginalPiece();
-//        int value = click.getValue();
-//        ArrayList c = click.getCandidateList();
-//        //Window displayed when puzzle is solved
-//        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-//                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
-//                "Position", JOptionPane.PLAIN_MESSAGE);
+        int row = click.getRow();
+        int col = click.getCol();
+        boolean phase = click.getOriginalPiece();
+        int value = click.getValue();
+        ArrayList c = click.getCandidateList();
+        //Window displayed when puzzle is solved
+        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
+                "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     // Creates menu bar and attach it to GUI window
@@ -362,6 +362,7 @@ public class GUI extends JFrame implements ActionListener{
                 sudokuGrid[i][j].setText(" ");
                 sudokuGrid[i][j].setValue(0);
                 sudokuGrid[i][j].setOriginalPiece(false);
+                sudokuGrid[i][j].reinitalizeCandidateList();
             }
         }
     }
@@ -428,16 +429,14 @@ public class GUI extends JFrame implements ActionListener{
     private boolean single(){
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
-                if(sudokuGrid[j][i].getCandidateList().size() == 1){
+                if(sudokuGrid[j][i].getCandidateList().size() == 1 && sudokuGrid[j][i].getValue() == 0){
                     int value = (int) sudokuGrid[j][i].getCandidateList().get(0);       // get value of candidate
                     sudokuGrid[j][i].setValue(value);                   // set value
                     sudokuGrid[j][i].setText(Integer.toString(value));      // set text
-                    for(int a = 1; a < 10; a++){
-                        for(int b = 1; b < 10; b++){
-                            checkRow(a, value);
-                            checkCol(b, value);
-                        }
-                    }
+
+                    checkRow(i + 1, value);
+                    checkCol(j + 1, value);
+
                     checkGrids();
                     return true;
                 }
