@@ -107,7 +107,7 @@ public class GUI extends JFrame implements ActionListener{
 //        boolean phase = click.getOriginalPiece();
 //        int value = click.getValue();
 //        ArrayList c = click.getCandidateList();
-//        //Window displayed when puzzle is solve
+//        //Window displayed when puzzle is solved
 //        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
 //                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
 //                "Position", JOptionPane.PLAIN_MESSAGE);
