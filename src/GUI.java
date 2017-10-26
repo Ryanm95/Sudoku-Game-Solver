@@ -277,6 +277,7 @@ public class GUI extends JFrame implements ActionListener{
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
 
+
                     }
                 }
         );
@@ -459,6 +460,8 @@ public class GUI extends JFrame implements ActionListener{
     }
 
     private boolean hiddenSingle(){
+
+
         return false;
     }
 
