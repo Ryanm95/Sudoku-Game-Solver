@@ -83,14 +83,11 @@ public class MyJButton extends JButton{
 //        candidateList.add(number);
 //    }
 
-    public boolean deleteCandidate(int number){        // delete number
+    public void deleteCandidate(int number){        // delete number
         int index = candidateList.indexOf(number);  // gets index of number being searched for
 
         if(index != -1) {
             candidateList.remove(index);                // removes that index from array
-            return true;                                // if found and deleted... return true
         }
-        // not found so not deleted... return false
-        return false;
     }
 }

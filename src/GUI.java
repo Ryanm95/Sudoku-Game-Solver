@@ -62,9 +62,9 @@ public class GUI extends JFrame implements ActionListener{
                 click.setValue(value);
                 for(int i = 1; i < 10; i++){
                     for(int j = 1; j < 10; j++){
-                        sudokuGrid[i][j].reinitalizeCandidateList();
-                        checkRow(i, sudokuGrid[i][j].getValue());
-                        checkCol(j, sudokuGrid[i][j].getValue());
+                        sudokuGrid[i-1][j-1].reinitalizeCandidateList();
+                        checkRow(i, sudokuGrid[i-1][j-1].getValue());
+                        checkCol(j, sudokuGrid[i-1][j-1].getValue());
                     }
                 }
                 checkGrids();
@@ -257,7 +257,10 @@ public class GUI extends JFrame implements ActionListener{
         single.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-//
+                        if(!single()){
+                            JOptionPane.showMessageDialog(GUI.this, " No singles on board",
+                                    "Single", JOptionPane.PLAIN_MESSAGE);
+                        }
                     }
                 }
         );
@@ -417,6 +420,21 @@ public class GUI extends JFrame implements ActionListener{
                         "   Click Locked Candidate to narrow down the number of values for that cell\n" +
                         "   Click Naked Pairs to narrow down the number of values for that cell\n",
                 "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private boolean single(){
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(sudokuGrid[j][i].getCandidateList().size() == 1){
+                    int value = (int) sudokuGrid[j][i].getCandidateList().get(0);       // get value of candidate
+                    sudokuGrid[j][i].getCandidateList().clear();        // delete it
+                    sudokuGrid[j][i].setValue(value);                   // set value
+                    sudokuGrid[j][i].setText(Integer.toString(value));      // set text
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void checkRow(int row, int value){
