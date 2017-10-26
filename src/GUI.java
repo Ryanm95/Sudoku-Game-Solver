@@ -82,7 +82,6 @@ public class GUI extends JFrame implements ActionListener{
                                 checkCol(j, value);
                             }
                         }
-                        checkGrids();
                     }
                     else{
                         //Window displayed when digit can't be place at this position
@@ -100,7 +99,6 @@ public class GUI extends JFrame implements ActionListener{
                             checkCol(j, value);
                         }
                     }
-                    checkGrids();
                 }
             }
         }
@@ -429,15 +427,9 @@ public class GUI extends JFrame implements ActionListener{
             for(int j = 0; j < 9; j++){
                 if(sudokuGrid[j][i].getCandidateList().size() == 1){
                     int value = (int) sudokuGrid[j][i].getCandidateList().get(0);       // get value of candidate
+                   // sudokuGrid[j][i].getCandidateList().clear();        // delete it
                     sudokuGrid[j][i].setValue(value);                   // set value
                     sudokuGrid[j][i].setText(Integer.toString(value));      // set text
-                    for(int a = 1; a < 10; a++){
-                        for(int b = 1; b < 10; b++){
-                            checkRow(a, value);
-                            checkCol(b, value);
-                        }
-                    }
-                    checkGrids();
                     return true;
                 }
             }
