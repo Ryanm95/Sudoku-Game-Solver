@@ -54,6 +54,7 @@ public class GUI extends JFrame implements ActionListener{
         if(event.getSource() == choices[9]){
             value = 0;
             eraserClicked = true;
+            choiceClickedFirst = true;
             //System.out.println("Clicked");
         }
         if(click.getOriginalPiece() == false && click.getChoiceButtons() == false && choiceClickedFirst == true) {      // in sudoku grid... not original piece
