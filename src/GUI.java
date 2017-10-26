@@ -464,7 +464,7 @@ public class GUI extends JFrame implements ActionListener{
         // grid 1
         for(int i = 0; i < 3; ++i){
             for(int j = 0; j < 3; ++j){
-                if(biggest < sudokuGrid[i][j].getCandidateList().size()){
+                if(biggest < sudokuGrid[i][j].getCandidateList().size() && sudokuGrid[i][j].getValue() == 0){
                     biggest = sudokuGrid[i][j].getCandidateList().size();       // update biggest candidate size
                     col = i;
                     row = j;
@@ -472,6 +472,9 @@ public class GUI extends JFrame implements ActionListener{
             }
         }
         ArrayList temp = new ArrayList(sudokuGrid[col][row].getCandidateList());        // make a copy of candidate list
+
+//        JOptionPane.showMessageDialog(null,
+//                "List: " + temp,"error", JOptionPane.PLAIN_MESSAGE);
 
         for(int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
