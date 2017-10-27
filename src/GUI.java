@@ -26,6 +26,7 @@ public class GUI extends JFrame implements ActionListener{
     private Hint hint = new Hint();                 // objects for algorithms created
     private Single s = new Single();
     private HiddenSingle hs = new HiddenSingle();
+    private LockedCandidate lc = new LockedCandidate();
     private Solve sol = new Solve();
 
 
@@ -66,6 +67,8 @@ public class GUI extends JFrame implements ActionListener{
             choiceClickedFirst = true;
             //System.out.println("Clicked");
         }
+        //TODO if there is something in the cell and we write over it with new number it should erase first
+        //TODO then add in number
         if(!click.getOriginalPiece() && !click.getChoiceButtons() && choiceClickedFirst) {      // in sudoku grid... not original piece
             if (eraserClicked) {
                 if (click.getValue() != 0) {
@@ -117,6 +120,7 @@ public class GUI extends JFrame implements ActionListener{
                 }
             }
         }
+        //TODO delete or comment out for later
         int row = click.getRow();
         int col = click.getCol();
         boolean phase = click.getOriginalPiece();
@@ -299,7 +303,7 @@ public class GUI extends JFrame implements ActionListener{
         lockedCandidate.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-
+                        lc.lockedCandidate(sudokuGrid);
                     }
                 }
         );
