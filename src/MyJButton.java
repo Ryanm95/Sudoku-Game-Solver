@@ -57,15 +57,6 @@ public class MyJButton extends JButton{
         }
     }
 
-    //TODO delete if unused
-//    public void setCol(int col){        // setters
-//        this.col = col;
-//    }
-//
-//    public void setRow(int row){
-//        this.row = row;
-//    }
-
     public void setValue(int value){
         this.value = value;
     }
@@ -77,11 +68,6 @@ public class MyJButton extends JButton{
     public void setChoiceButtons(boolean choiceButtons){
         this.choiceButtons = choiceButtons;
     }
-
-    //TODO delete if unused
-//    public void addCandidate(int number){       // adds number to array
-//        candidateList.add(number);
-//    }
 
     public void deleteCandidate(int number){        // delete number
         int index = candidateList.indexOf(number);  // gets index of number being searched for
