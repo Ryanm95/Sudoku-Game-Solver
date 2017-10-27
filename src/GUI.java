@@ -277,7 +277,10 @@ public class GUI extends JFrame implements ActionListener{
         hiddenSingle.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        hiddenSingle();
+                        if(!hiddenSingle()){
+                            JOptionPane.showMessageDialog(GUI.this, " No hidden singles found",
+                                    "Hidden Single", JOptionPane.PLAIN_MESSAGE);
+                        }
                     }
                 }
         );
@@ -459,53 +462,418 @@ public class GUI extends JFrame implements ActionListener{
         return false;
     }
 
-    private void hiddenSingle(){
-        int col = 0, row = 0, biggest = 0;
-        // grid 1
-        for(int i = 0; i < 3; ++i){
-            for(int j = 0; j < 3; ++j){
-                if(biggest < sudokuGrid[i][j].getCandidateList().size() && sudokuGrid[i][j].getValue() == 0){
-                    biggest = sudokuGrid[i][j].getCandidateList().size();       // update biggest candidate size
-                    col = i;
-                    row = j;
-                }
-            }
+    private boolean hiddenSingle(){
+        if(hiddenSingle1()){
+            return true;
         }
-        ArrayList temp = new ArrayList(sudokuGrid[col][row].getCandidateList());        // make a copy of candidate list
+        else if(hiddenSingle2()){
+            return true;
+        }
+        else if(hiddenSingle3()){
+            return true;
+        }
+        else if(hiddenSingle4()){
+            return true;
+        }
+        else if(hiddenSingle5()){
+            return true;
+        }
+        else if(hiddenSingle6()){
+            return true;
+        }
+        else if(hiddenSingle7()){
+            return true;
+        }
+        else if(hiddenSingle8()){
+            return true;
+        }
+        else if(hiddenSingle9()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-//        JOptionPane.showMessageDialog(null,
-//                "List: " + temp,"error", JOptionPane.PLAIN_MESSAGE);
+    private boolean hiddenSingle1(){
+        int[] biggest = new int[9];
 
-        for(int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if(sudokuGrid[i][j].getValue() == 0 && i != col && j != row){       // only empty cells and not biggest CL
-                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){        // traverse CL to delete from temp
-                        int num = (int )sudokuGrid[i][j].getCandidateList().get(a);       // gets number from CL
-                        if(temp.contains(num)){       // returns true if in it
-                            int index = temp.indexOf(num);  // gets index of number being searched for
-                            temp.remove(index);                // removes that index from array
-                        }
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 0; i < 3; i++){   //rows
+            for(int j = 0; j < 3; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
                     }
                 }
             }
         }
-        sudokuGrid[col][row].getCandidateList().clear();
-        sudokuGrid[col][row].getCandidateList().add(temp.get(0));
 
-        int value = (int) sudokuGrid[col][row].getCandidateList().get(0);       // get value of candidate
-        sudokuGrid[col][row].setValue(value);                   // set value
-        sudokuGrid[col][row].setText(Integer.toString(value));      // set text
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
 
-        for(int i = 1; i < 10; i++){
-            for(int j = 1; j < 10; j++){
-                checkRow(i, value);
-                checkCol(j, value);
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 0; i < 3; ++i){
+            for (int j = 0; j < 3; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
             }
         }
-        checkGrids();
-
-
+        return false;
     }
+
+    private boolean hiddenSingle2(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 3; i < 6; i++){   //rows
+            for(int j = 0; j < 3; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 3; i < 6; ++i){
+            for (int j = 0; j < 3; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle3(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 6; i < 9; i++){   //rows
+            for(int j = 0; j < 3; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 6; i < 9; ++i){
+            for (int j = 0; j < 3; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle4(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 0; i < 3; i++){   //rows
+            for(int j = 3; j < 6; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 0; i < 3; ++i){
+            for (int j = 3; j < 6; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle5(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 3; i < 6; i++){   //rows
+            for(int j = 3; j < 6; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 3; i < 6; ++i){
+            for (int j = 3; j < 6; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle6(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 6; i < 9; i++){   //rows
+            for(int j = 3; j < 6; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 6; i < 9; ++i){
+            for (int j = 3; j < 6; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle7(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 0; i < 3; i++){   //rows
+            for(int j = 6; j < 9; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 0; i < 3; ++i){
+            for (int j = 6; j < 9; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle8(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 3; i < 6; i++){   //rows
+            for(int j = 6; j < 9; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 3; i < 6; ++i){
+            for (int j = 6; j < 9; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hiddenSingle9(){
+        int[] biggest = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            biggest[i] = 0; // initialize to 0
+
+        for(int i = 6; i < 9; i++){   //rows
+            for(int j = 6; j < 9; j++){   //cols
+                if(sudokuGrid[i][j].getValue() == 0){
+                    for(int a = 0; a < sudokuGrid[i][j].getCandidateList().size(); a++){
+                        biggest[(int) sudokuGrid[i][j].getCandidateList().get(a)-1] += 1;
+                    }
+                }
+            }
+        }
+
+        int valueFound = -1;
+        for(int i = 0; i < 9; i++){
+            if(biggest[i] == 1){
+                valueFound = i + 1;
+            }
+//            System.out.print(biggest[i] + " | ");   TODO delete later
+        }
+
+        //System.out.println("VALUE FOUND: " + valueFound);   //TODO delete later
+
+        for (int i = 6; i < 9; ++i){
+            for (int j = 6; j < 9; ++j){
+                if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
+                    sudokuGrid[i][j].setValue(valueFound);
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+
+                    checkRow(i + 1, valueFound);
+                    checkCol(j + 1, valueFound);
+                    checkGrids();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
 
     private void checkRow(int row, int value){
         for(int i = 0; i < 9; i++){
