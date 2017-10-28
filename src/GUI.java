@@ -30,6 +30,7 @@ public class GUI extends JFrame implements ActionListener{
     private Single s = new Single();
     private HiddenSingle hs = new HiddenSingle();
     private LockedCandidate lc = new LockedCandidate();
+    private NakedPair np = new NakedPair();
     private Solve sol = new Solve();
 
 
@@ -309,7 +310,7 @@ public class GUI extends JFrame implements ActionListener{
         nakedPairs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-
+                        np.processNakedPair(sudokuGrid);
                     }
                 }
         );
@@ -451,7 +452,7 @@ public class GUI extends JFrame implements ActionListener{
 
                 hint.checkRow(row, value, sudokuGrid);
                 hint.checkCol(col, value, sudokuGrid);
-                sudokuGrid[col - 1][row - 1].getCandidateList().clear();
+                //sudokuGrid[col - 1][row - 1].getCandidateList().clear();
             }
             hint.checkGrids(sudokuGrid);
 
