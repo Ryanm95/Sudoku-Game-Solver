@@ -451,6 +451,7 @@ public class GUI extends JFrame implements ActionListener{
 
                 hint.checkRow(row, value, sudokuGrid);
                 hint.checkCol(col, value, sudokuGrid);
+                sudokuGrid[col - 1][row - 1].getCandidateList().clear();
             }
             hint.checkGrids(sudokuGrid);
 
