@@ -90,6 +90,7 @@ public class GUI extends JFrame implements ActionListener{
                 if(checkOnFill) {
                     ArrayList candidate = click.getCandidateList();
                     if(candidate.contains(value)) {
+                        field.setText("");
                         click.setText(Integer.toString(value));
                         click.setValue(value);
                         hint.checkRow(click.getRow(), value, sudokuGrid);
@@ -104,6 +105,8 @@ public class GUI extends JFrame implements ActionListener{
                     }
                 }
                 else{
+                    //to get to work just add erase in if statment when its not equal
+                    //to zero
                     field.setText("");
                     click.setText(Integer.toString(value));
                     click.setValue(value);
@@ -114,15 +117,15 @@ public class GUI extends JFrame implements ActionListener{
             }
         }
         //TODO delete or comment out for later
-        int row = click.getRow();
-        int col = click.getCol();
-        boolean phase = click.getOriginalPiece();
-        int value = click.getValue();
-        ArrayList c = click.getCandidateList();
-        //Window displayed when puzzle is solved
-        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
-                "Position", JOptionPane.PLAIN_MESSAGE);
+//        int row = click.getRow();
+//        int col = click.getCol();
+//        boolean phase = click.getOriginalPiece();
+//        int value = click.getValue();
+//        ArrayList c = click.getCandidateList();
+//        //Window displayed when puzzle is solved
+//        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
+//                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
+//                "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     /*  Creates menu bar and attach it to GUI window
@@ -180,9 +183,9 @@ public class GUI extends JFrame implements ActionListener{
                             FileWriter fw = new FileWriter(f);
                             for(int i = 1; i < 10; i++) {
                                 for (int j = 1; j < 10; j++) {
-                                    if(sudokuGrid[i -1][j - 1].getValue() != 0){
-                                        fw.write(Integer.toString(j) + " " + Integer.toString(i) +
-                                                " " + Integer.toString(sudokuGrid[i -1][j -1].getValue()) + "\n");
+                                    if(sudokuGrid[j -1][i - 1].getValue() != 0){
+                                        fw.write(Integer.toString(i) + " " + Integer.toString(j) +
+                                                " " + Integer.toString(sudokuGrid[j -1][i -1].getValue()) + "\n");
                                     }
                                 }
                             }
@@ -504,11 +507,10 @@ public class GUI extends JFrame implements ActionListener{
             hint.checkGrids(sudokuGrid);
         }
         else{
-            //Window displayed when digit can't be place at this position
+            //Window displayed when eraser can't be erase at this position
             JOptionPane.showMessageDialog(this,
                     "Can't erase empty cell.",
                     "Error", JOptionPane.PLAIN_MESSAGE);
         }
     }
-
 }
