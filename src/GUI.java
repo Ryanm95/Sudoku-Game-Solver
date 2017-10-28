@@ -13,15 +13,18 @@ public class GUI extends JFrame implements ActionListener{
     private MyJButton sudokuGrid[][] = new MyJButton[9][9];     // GUI components
     private JPanel grid = new JPanel();
     private JPanel numberOptions = new JPanel();
+    private JPanel displayCandidates = new JPanel();
     private JPanel p[][] = new JPanel[3][3];
     private MyJButton[] choices;
+    private JTextField field = new JTextField();
 
-    private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", ""};      // values for the choices
+    private final String values[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "", ""};      // values for the choices
 
     private int value;                              // toggles for buttons
     private boolean choiceClickedFirst = false;
     private boolean eraserClicked = false;
     private boolean checkOnFill = false;
+    private boolean questionClicked = false;
 
     private Hint hint = new Hint();                 // objects for algorithms created
     private Single s = new Single();
@@ -34,13 +37,15 @@ public class GUI extends JFrame implements ActionListener{
         super("Sudoku");
         getContentPane().setBackground(Color.gray);
 
-        //SetUpGui setup = new SetUpGui();
-
         setUpSudokuGrid();              //
         setUpChoiceButtons();
         JPanel container = new JPanel(new BorderLayout());
         container.add(grid, BorderLayout.WEST);
         container.add(numberOptions);
+        field.setEditable(false);
+        field.setPreferredSize( new Dimension( 300, 24 ) );
+        displayCandidates.add(field);
+        container.add(displayCandidates, BorderLayout.SOUTH);
 
         add(container);
 
@@ -53,46 +58,33 @@ public class GUI extends JFrame implements ActionListener{
 
         MyJButton click = (MyJButton) event.getSource();
 
-        for(int i = 0; i < values.length-1; ++i){
+        for(int i = 0; i < values.length-2; ++i){
             if(event.getSource() == choices[i]){        // button we clicked was an number choice
                 value = choices[i].getValue();
                 choiceClickedFirst = true;
                 eraserClicked = false;
-                //System.out.println(value);
+                questionClicked = false;
             }
         }
-        if(event.getSource() == choices[9]){
+        if(event.getSource() == choices[9]){        // if eraser was clicked
             value = 0;
             eraserClicked = true;
             choiceClickedFirst = true;
-            //System.out.println("Clicked");
         }
+        else if(event.getSource() == choices[10]){      // if question mark was clicked
+            questionClicked = true;
+            choiceClickedFirst = true;
+            eraserClicked = false;
+        }
+
         //TODO if there is something in the cell and we write over it with new number it should erase first
         //TODO then add in number
         if(!click.getOriginalPiece() && !click.getChoiceButtons() && choiceClickedFirst) {      // in sudoku grid... not original piece
             if (eraserClicked) {
-                if (click.getValue() != 0) {
-                    click.setText(" ");
-                    click.setValue(value);
-                    for (int i = 1; i < 10; i++) {
-                        for (int j = 1; j < 10; j++) {
-                            sudokuGrid[i - 1][j - 1].reinitalizeCandidateList();
-                        }
-                    }
-                    for (int i = 1; i < 10; i++) {
-                        for (int j = 1; j < 10; j++) {
-                            hint.checkRow(i, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
-                            hint.checkCol(j, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
-                        }
-                    }
-                    hint.checkGrids(sudokuGrid);
-                }
-                else{
-                    //Window displayed when digit can't be place at this position
-                    JOptionPane.showMessageDialog(this,
-                            "Can't erase empty cell.",
-                            "Error", JOptionPane.PLAIN_MESSAGE);
-                }
+                eraserWasClicked(click);
+            }
+            else if(questionClicked){
+                field.setText("Candidates: " + String.valueOf(click.getCandidateList()));
             }
             else {
                 if(checkOnFill) {
@@ -112,6 +104,7 @@ public class GUI extends JFrame implements ActionListener{
                     }
                 }
                 else{
+                    field.setText("");
                     click.setText(Integer.toString(value));
                     click.setValue(value);
                     hint.checkRow(click.getRow(), value, sudokuGrid);
@@ -351,11 +344,18 @@ public class GUI extends JFrame implements ActionListener{
             choices[i].setPreferredSize(new Dimension(55,60));
             numberOptions.add(choices[i]);
         }
+        try {
+            Image img1 = ImageIO.read(getClass().getResource("QMark.png"));
+            choices[values.length -1 ].setIcon(new ImageIcon(img1));
+            choices[values.length -1 ].setHorizontalTextPosition(SwingConstants.CENTER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             Image img = ImageIO.read(getClass().getResource("eraser.png"));
-            choices[values.length -1 ].setIcon(new ImageIcon(img));
-            choices[values.length -1 ].setHorizontalTextPosition(SwingConstants.CENTER);
+            choices[values.length -2 ].setIcon(new ImageIcon(img));
+            choices[values.length -2 ].setHorizontalTextPosition(SwingConstants.CENTER);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -474,7 +474,41 @@ public class GUI extends JFrame implements ActionListener{
                         "   Click Single to fill in one open space\n" +
                         "   Click Hidden Single to fill in one open space\n" +
                         "   Click Locked Candidate to narrow down the number of values for that cell\n" +
-                        "   Click Naked Pairs to narrow down the number of values for that cell\n",
+                        "   Click Naked Pairs to narrow down the number of values for that cell\n" +
+                        "On Board:\n" +
+                        "   Click the eraser icon to erase a cell\n" +
+                        "   Click the question mark and then click a cell to see its candidates\n" +
+                        "   Click on a number then click a cell to add that number\n",
                 "How to Use Interface", JOptionPane.PLAIN_MESSAGE);
     }
+
+    /*
+        Handles when the eraser is clicked
+    */
+    private void eraserWasClicked(MyJButton click){
+        //field.setText("");
+        if (click.getValue() != 0) {
+            click.setText(" ");
+            click.setValue(value);
+            for (int i = 1; i < 10; i++) {
+                for (int j = 1; j < 10; j++) {
+                    sudokuGrid[i - 1][j - 1].reinitalizeCandidateList();
+                }
+            }
+            for (int i = 1; i < 10; i++) {
+                for (int j = 1; j < 10; j++) {
+                    hint.checkRow(i, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
+                    hint.checkCol(j, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
+                }
+            }
+            hint.checkGrids(sudokuGrid);
+        }
+        else{
+            //Window displayed when digit can't be place at this position
+            JOptionPane.showMessageDialog(this,
+                    "Can't erase empty cell.",
+                    "Error", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
 }
