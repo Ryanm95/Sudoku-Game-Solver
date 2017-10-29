@@ -62,8 +62,9 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    //System.out.print((i+1) + " | " + (j+1) + " | " + valueFound);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -101,8 +102,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -141,8 +142,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -180,8 +181,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -219,8 +220,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -258,8 +259,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -297,8 +298,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -336,8 +337,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }
@@ -375,8 +376,8 @@ public class HiddenSingle extends Hint{
                     sudokuGrid[i][j].setValue(valueFound);
                     sudokuGrid[i][j].setText(Integer.toString(valueFound));
 
-                    checkRow(i + 1, valueFound, sudokuGrid);
-                    checkCol(j + 1, valueFound, sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);
+                    checkCol(i + 1, valueFound, sudokuGrid);
                     checkGrids(sudokuGrid);
                     return true;
                 }

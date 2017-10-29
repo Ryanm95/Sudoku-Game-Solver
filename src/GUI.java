@@ -91,6 +91,9 @@ public class GUI extends JFrame implements ActionListener{
                 if(checkOnFill) {
                     ArrayList candidate = click.getCandidateList();
                     if(candidate.contains(value)) {
+                        if(click.getValue() != 0){
+                            eraserWasClicked(click);
+                        }
                         field.setText("");
                         click.setText(Integer.toString(value));
                         click.setValue(value);
@@ -106,8 +109,9 @@ public class GUI extends JFrame implements ActionListener{
                     }
                 }
                 else{
-                    //to get to work just add erase in if statment when its not equal
-                    //to zero
+                    if(click.getValue() != 0){
+                        eraserWasClicked(click);
+                    }
                     field.setText("");
                     click.setText(Integer.toString(value));
                     click.setValue(value);
@@ -320,7 +324,7 @@ public class GUI extends JFrame implements ActionListener{
         solve.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        sol.solvePuzzle();
+                        sol.solvePuzzle(sudokuGrid);
                     }
                 }
         );

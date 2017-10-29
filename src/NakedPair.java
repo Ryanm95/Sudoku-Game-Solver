@@ -14,13 +14,13 @@ public class NakedPair extends Hint{
 
     public void processNakedPair(MyJButton[][] sudokuGrid){
         for(int i = 0; i < 9; i++){
-           setUparray();
-           //possiblePair.add(new ArrayList<Integer>();
+            setUparray();
+            //possiblePair.add(new ArrayList<Integer>();
             if(processRow(i, sudokuGrid) == 1){
                 return;
             }
-           //System.out.println();
-           //proccessCol(i, sudokuGrid);
+            //System.out.println();
+            //proccessCol(i, sudokuGrid);
         }
     }
 
