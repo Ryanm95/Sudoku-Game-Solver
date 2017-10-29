@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Hint {
@@ -11,6 +12,27 @@ public class Hint {
     protected void checkCol(int col, int value, MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 9; i++) {
             sudokuGrid[col - 1][i].deleteCandidate(value);
+        }
+    }
+
+    //
+    // Checks sudoku board for a win
+    //
+    protected void checkForWin( MyJButton[][] sudokuGrid){
+        int tracker = 0;
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(sudokuGrid[i][j].getCandidateList().size() != 0){
+                    tracker = -1;
+                    break;
+                }
+            }
+        }
+        if (tracker == 0) {
+            //Window displayed when puzzle is solved
+            JOptionPane.showMessageDialog(null, "You Have solved the Puzzle",
+                    "Winner", JOptionPane.PLAIN_MESSAGE);
+            System.exit(0);
         }
     }
 

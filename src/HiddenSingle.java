@@ -2,30 +2,39 @@ public class HiddenSingle extends Hint{
 
     public boolean hiddenSingle(MyJButton[][] sudokuGrid){
         if(hiddenSingle1(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle2(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle3(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle4(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle5(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle6(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle7(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle8(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else if(hiddenSingle9(sudokuGrid)){
+            checkForWin(sudokuGrid);
             return true;
         }
         else{

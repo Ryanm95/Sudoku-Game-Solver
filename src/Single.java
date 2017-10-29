@@ -12,6 +12,7 @@ public class Single extends Hint{
                     checkCol(j + 1, value, sudokuGrid);
 
                     checkGrids(sudokuGrid);
+                    checkForWin(sudokuGrid);
                     return true;
                 }
             }

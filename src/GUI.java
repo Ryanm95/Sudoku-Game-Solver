@@ -100,6 +100,7 @@ public class GUI extends JFrame implements ActionListener{
                         hint.checkRow(click.getRow(), value, sudokuGrid);
                         hint.checkCol(click.getCol(), value, sudokuGrid);
                         hint.checkGrids(sudokuGrid);
+                        hint.checkForWin(sudokuGrid);
                     }
                     else{
                         //Window displayed when digit can't be place at this position
@@ -118,6 +119,7 @@ public class GUI extends JFrame implements ActionListener{
                     hint.checkRow(click.getRow(), value, sudokuGrid);
                     hint.checkCol(click.getCol(), value, sudokuGrid);
                     hint.checkGrids(sudokuGrid);
+                    hint.checkForWin(sudokuGrid);
                 }
             }
         }
