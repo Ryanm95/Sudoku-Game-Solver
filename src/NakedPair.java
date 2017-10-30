@@ -13,11 +13,10 @@ public class NakedPair extends Hint{
             tmpCount++;
             rowCount = tmpCount;
         }
-        System.out.println("LOL");
+
         if(tmpCount == 9){
-            System.out.println("IN HERE");
             tmpCount = colCount;
-            while(tmpCount< 9){
+            while(tmpCount < 9){
                 if(processCol(tmpCount, sudokuGrid)){
                     tmpCount++;
                     colCount = tmpCount;
@@ -29,11 +28,11 @@ public class NakedPair extends Hint{
         }
 
         if(rowCount == 9 && colCount == 9){
-            System.out.print("END");
-
             rowCount = 0;
             colCount = 0;
+            return;
         }
+
         return;
     }
 
@@ -144,7 +143,7 @@ public class NakedPair extends Hint{
 
         if(row != -1 && row1 != -1){
             checkCol(col + 1, valueFound,sudokuGrid);
-            checkRow(col + 1, valueFound2,sudokuGrid);
+            checkCol(col + 1, valueFound2,sudokuGrid);
             sudokuGrid[col][row].getCandidateList().add(valueFound);
             sudokuGrid[col][row].getCandidateList().add(valueFound2);
             sudokuGrid[col][row1].getCandidateList().add(valueFound);
