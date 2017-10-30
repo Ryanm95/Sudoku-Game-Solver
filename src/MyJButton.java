@@ -1,5 +1,11 @@
+/**
+ * @authors Edgar Martinez-Ayala and Ryan Moran
+ * MyJButton class - Class that contains the games Button
+ * 					 object that holds all button values along
+ * 					 with the position that the button currently
+ * 					 holds on the game board.
+ */
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 

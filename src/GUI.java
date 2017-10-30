@@ -1,3 +1,10 @@
+/**
+ * @authors Edgar Martinez-Ayala and Ryan Moran
+ * GUI class - Handles all GUI  related parts of the program. Such
+ *             examples include the frame, side buttons and all their functionality,
+ *             menu and all the submenu....along with all it functionality.
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -51,7 +58,7 @@ public class GUI extends JFrame implements ActionListener{
         add(container);
 
         addMenu();  //Adds the menu bar to the window
-        setSize( 800, 800 );
+        setSize( 800, 800 );  //window size
         setVisible( true );
     }
 
@@ -65,7 +72,6 @@ public class GUI extends JFrame implements ActionListener{
                 choiceClickedFirst = true;
                 eraserClicked = false;
                 questionClicked = false;
-                click.setBackground(Color.blue);
 
             }
         }
@@ -80,19 +86,17 @@ public class GUI extends JFrame implements ActionListener{
             eraserClicked = false;
         }
 
-        //TODO if there is something in the cell and we write over it with new number it should erase first
-        //TODO then add in number
         if(!click.getOriginalPiece() && !click.getChoiceButtons() && choiceClickedFirst) {      // in sudoku grid... not original piece
             if (eraserClicked) {
-                eraserWasClicked(click);
+                eraserWasClicked(click);  //calls erase function
             }
-            else if(questionClicked){
+            else if(questionClicked){  //shows candidate list in bottom panel
                 field.setText("Candidates: " + String.valueOf(click.getCandidateList()));
             }
             else {
-                if(checkOnFill) {
+                if(checkOnFill) {   //makes sure num can go at that position
                     ArrayList candidate = click.getCandidateList();
-                    if(candidate.contains(value)) {
+                    if(candidate.contains(value)) {  //makes sure num can go at that position
                         if(click.getValue() != 0){
                             eraserWasClicked(click);
                         }
@@ -112,8 +116,8 @@ public class GUI extends JFrame implements ActionListener{
                     }
                 }
                 else{
-                    if(click.getValue() != 0){
-                        eraserWasClicked(click);
+                    if(click.getValue() != 0){   //if num is already in square and being overwritten
+                        eraserWasClicked(click);  //erase from grid
                     }
                     field.setText("");
                     click.setText(Integer.toString(value));
@@ -125,16 +129,6 @@ public class GUI extends JFrame implements ActionListener{
                 }
             }
         }
-        //TODO delete or comment out for later
-//        int row = click.getRow();
-//        int col = click.getCol();
-//        boolean phase = click.getOriginalPiece();
-//        int value = click.getValue();
-//        ArrayList c = click.getCandidateList();
-//        //Window displayed when puzzle is solved
-//        JOptionPane.showMessageDialog(this, "Row: " + row + "\n " +
-//                        "Col: " + col + "\n" + "Phase: " + phase + "\n Num:" + value + "\nList: " + c,
-//                "Position", JOptionPane.PLAIN_MESSAGE);
     }
 
     /*  Creates menu bar and attach it to GUI window
@@ -190,7 +184,7 @@ public class GUI extends JFrame implements ActionListener{
                         File f = new File(SaveAs.getSelectedFile() +".txt");
                         try{
                             FileWriter fw = new FileWriter(f);
-                            for(int i = 1; i < 10; i++) {
+                            for(int i = 1; i < 10; i++) {       //loops through grid and writes to file
                                 for (int j = 1; j < 10; j++) {
                                     if(sudokuGrid[j -1][i - 1].getValue() != 0){
                                         fw.write(Integer.toString(i) + " " + Integer.toString(j) +
@@ -198,9 +192,8 @@ public class GUI extends JFrame implements ActionListener{
                                     }
                                 }
                             }
-                            fw.close();
+                            fw.close();  //closes the file
                         }catch(Exception ex){
-
                         }
                     }
                 }  // end anonymous inner class
@@ -277,12 +270,13 @@ public class GUI extends JFrame implements ActionListener{
                 }  // end anonymous inner class
         ); // end call to addActionListener\
 
+        //When single menuItem is clicked it performs a single
         JMenuItem single = new JMenuItem("Single");
         hintMenu.add(single);
         single.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        if(!s.single(sudokuGrid)){
+                        if(!s.single(sudokuGrid)){   //Prints when no single is found
                             JOptionPane.showMessageDialog(GUI.this, " No singles on board",
                                     "Single", JOptionPane.PLAIN_MESSAGE);
                         }
@@ -290,12 +284,13 @@ public class GUI extends JFrame implements ActionListener{
                 }
         );
 
+        //When single menuItem is clicked it performs a Hidden single
         JMenuItem hiddenSingle = new JMenuItem("Hidden Single");
         hintMenu.add(hiddenSingle);
         hiddenSingle.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        if(!hs.hiddenSingle(sudokuGrid)){
+                        if(!hs.hiddenSingle(sudokuGrid)){    //Prints when no hidden single is found
                             JOptionPane.showMessageDialog(GUI.this, " No hidden singles found",
                                     "Hidden Single", JOptionPane.PLAIN_MESSAGE);
                         }
@@ -303,26 +298,30 @@ public class GUI extends JFrame implements ActionListener{
                 }
         );
 
+        //When lockedCandidate is clicked it makes a call to lockedCandidate
         JMenuItem lockedCandidate = new JMenuItem("Locked Candidate");
         hintMenu.add(lockedCandidate);
         lockedCandidate.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        lc.lockedCandidate(sudokuGrid);
+                        lc.lockedCandidate(sudokuGrid);  //calls lockedCandidate
                     }
                 }
         );
 
+        //When nakedPairs is clicked it makes a call to nakedPair
         JMenuItem nakedPairs = new JMenuItem("Naked Pairs");
         hintMenu.add(nakedPairs);
         nakedPairs.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent event) {
-                        np.processNakedPair(sudokuGrid);
+                        np.processNakedPair(sudokuGrid); //calls to nakedPair
                     }
                 }
         );
 
+        //When  solve menuItem us clicked it calls to solve class to
+        //solve the puzzle
         JMenuItem solve = new JMenuItem("Solve Puzzle");
         hintMenu.add(solve);
         solve.addActionListener(
@@ -348,15 +347,15 @@ public class GUI extends JFrame implements ActionListener{
     private void setUpChoiceButtons(){
         choices = new MyJButton[values.length];
 
-        for(int i = 0; i < values.length; ++i){
+        for(int i = 0; i < values.length; ++i){   //adds side buttons to board
             choices[i] = new MyJButton(values[i]);
-            choices[i].setValue(i + 1);
+            choices[i].setValue(i + 1);  //value that button holds
             choices[i].setChoiceButtons(true);
             choices[i].addActionListener(this);
             choices[i].setPreferredSize(new Dimension(55,60));
             numberOptions.add(choices[i]);
         }
-        try {
+        try { //adds image to question mark button
             Image img1 = ImageIO.read(getClass().getResource("QMark.png"));
             choices[values.length -1 ].setIcon(new ImageIcon(img1));
             choices[values.length -1 ].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -364,7 +363,7 @@ public class GUI extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 
-        try {
+        try {  //adds image to eraser button
             Image img = ImageIO.read(getClass().getResource("eraser.png"));
             choices[values.length -2 ].setIcon(new ImageIcon(img));
             choices[values.length -2 ].setHorizontalTextPosition(SwingConstants.CENTER);
@@ -501,15 +500,15 @@ public class GUI extends JFrame implements ActionListener{
     private void eraserWasClicked(MyJButton click){
         //field.setText("");
         if (click.getValue() != 0) {
-            click.setText(" ");
-            click.setValue(value);
+            click.setText(" ");  //removes text
+            click.setValue(value);   //removes value from button
             for (int i = 1; i < 10; i++) {
                 for (int j = 1; j < 10; j++) {
-                    sudokuGrid[i - 1][j - 1].reinitalizeCandidateList();
+                    sudokuGrid[i - 1][j - 1].reinitalizeCandidateList();  //resets the candidate list
                 }
             }
             for (int i = 1; i < 10; i++) {
-                for (int j = 1; j < 10; j++) {
+                for (int j = 1; j < 10; j++) {   //updates candidate list
                     hint.checkRow(i, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
                     hint.checkCol(j, sudokuGrid[j - 1][i - 1].getValue(), sudokuGrid);
                 }

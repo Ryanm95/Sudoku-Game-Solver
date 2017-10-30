@@ -1,6 +1,17 @@
+/**
+ * @author Edgar Martinez-Ayala and Ryan Moran
+ * HiddenSingle class - Class that handles the HiddenSingle algorithm.
+ *                      The algorithm checks one box at a time for a
+ *                      hidden single, when one is found it returns true
+ *                      and stops the process, if none are found then it returns
+ *                      false.
+ *
+ */
+
 public class HiddenSingle extends Hint{
 
     public boolean hiddenSingle(MyJButton[][] sudokuGrid){
+        //makes calls to hiddenSingle till one is found in the grid
         if(hiddenSingle1(sudokuGrid)){
             checkForWin(sudokuGrid);
             return true;
@@ -59,7 +70,7 @@ public class HiddenSingle extends Hint{
         }
 
         int valueFound = -1;
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < 9; i++){  //looks for value in array
             if(biggest[i] == 1){
                 valueFound = i + 1;
             }
@@ -68,13 +79,12 @@ public class HiddenSingle extends Hint{
         for (int i = 0; i < 3; ++i){
             for (int j = 0; j < 3; ++j){
                 if (sudokuGrid[i][j].getCandidateList().contains(valueFound) && sudokuGrid[i][j].getValue() == 0){
-                    sudokuGrid[i][j].setValue(valueFound);
-                    sudokuGrid[i][j].setText(Integer.toString(valueFound));
+                    sudokuGrid[i][j].setValue(valueFound);  //adds value onto button
+                    sudokuGrid[i][j].setText(Integer.toString(valueFound));  //updates board text
 
-                    //System.out.print((i+1) + " | " + (j+1) + " | " + valueFound);
-                    checkRow(j + 1, valueFound, sudokuGrid);
-                    checkCol(i + 1, valueFound, sudokuGrid);
-                    checkGrids(sudokuGrid);
+                    checkRow(j + 1, valueFound, sudokuGrid);  //updates row candidate list
+                    checkCol(i + 1, valueFound, sudokuGrid);  //updates col candidate list
+                    checkGrids(sudokuGrid);  //updates all Grids
                     return true;
                 }
             }
@@ -82,6 +92,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 2
     private boolean hiddenSingle2(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -121,6 +132,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 3
     private boolean hiddenSingle3(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -161,6 +173,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 4
     private boolean hiddenSingle4(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -200,6 +213,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 5
     private boolean hiddenSingle5(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -239,6 +253,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 6
     private boolean hiddenSingle6(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -278,6 +293,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 7
     private boolean hiddenSingle7(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -317,6 +333,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 8
     private boolean hiddenSingle8(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -356,6 +373,7 @@ public class HiddenSingle extends Hint{
         return false;
     }
 
+    //Same as HiddenSingle1 but instead it checks box 9
     private boolean hiddenSingle9(MyJButton[][] sudokuGrid){
         int[] biggest = new int[9];
 
@@ -394,5 +412,4 @@ public class HiddenSingle extends Hint{
         }
         return false;
     }
-
 }

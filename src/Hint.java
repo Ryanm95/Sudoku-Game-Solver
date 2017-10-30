@@ -1,3 +1,9 @@
+/**
+ * @author Edgar Martinez-Ayala and Ryan Moran
+ * Hint class - Class that contains all the methods for checking
+ *              row, col, and grids, fro when buttons are added and deleted
+ *
+ */
 import javax.swing.*;
 
 public class Hint {
