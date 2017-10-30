@@ -1,4 +1,10 @@
-import javax.swing.*;
+/**
+ * @author Edgar Martinez-Ayala and Ryan Moran
+ * Solve class - Class that has a loop that runs till program is solved
+ *               Prints messdage telling the player the puzzle has been solved '
+ *               and then exits the program.
+ *
+ */
 
 public class Solve extends Hint {
 
@@ -9,10 +15,10 @@ public class Solve extends Hint {
 
     //
     // Solves puzzle using 4 algorithms
+    // Runs till puzzle is solved
     //
     public void solvePuzzle(MyJButton[][] sudokuGrid) {
         while (true) {
-
             s.single(sudokuGrid);
             hs.hiddenSingle(sudokuGrid);
             lc.lockedCandidate(sudokuGrid);

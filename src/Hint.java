@@ -7,13 +7,14 @@
 import javax.swing.*;
 
 public class Hint {
-
+    //Deletes numbers from candidate list in that row when button is added
     protected void checkRow(int row, int value, MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 9; i++) {
             sudokuGrid[i][row - 1].deleteCandidate(value);
         }
     }
 
+    //Deletes numbers from candidate list in that col when button is added
     protected void checkCol(int col, int value, MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 9; i++) {
             sudokuGrid[col - 1][i].deleteCandidate(value);
@@ -41,6 +42,7 @@ public class Hint {
         }
     }
 
+    //Makes calls to all checkGrid methods
     protected void checkGrids(MyJButton[][] sudokuGrid) {
         checkGrid1(sudokuGrid);
         checkGrid2(sudokuGrid);
@@ -53,6 +55,7 @@ public class Hint {
         checkGrid9(sudokuGrid);
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid1(MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -66,6 +69,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid2(MyJButton[][] sudokuGrid) {
         for (int i = 3; i < 6; i++) {
             for (int j = 0; j < 3; j++) {
@@ -79,6 +83,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid3(MyJButton[][] sudokuGrid) {
         for (int i = 6; i < 9; i++) {
             for (int j = 0; j < 3; j++) {
@@ -92,6 +97,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid4(MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 3; i++) {
             for (int j = 3; j < 6; j++) {
@@ -105,6 +111,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid5(MyJButton[][] sudokuGrid) {
         for (int i = 3; i < 6; i++) {
             for (int j = 3; j < 6; j++) {
@@ -118,6 +125,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid6(MyJButton[][] sudokuGrid) {
         for (int i = 6; i < 9; i++) {
             for (int j = 3; j < 6; j++) {
@@ -131,6 +139,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid7(MyJButton[][] sudokuGrid) {
         for (int i = 0; i < 3; i++) {
             for (int j = 6; j < 9; j++) {
@@ -144,6 +153,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid8(MyJButton[][] sudokuGrid) {
         for (int i = 3; i < 6; i++) {
             for (int j = 6; j < 9; j++) {
@@ -157,6 +167,7 @@ public class Hint {
         }
     }
 
+    //checks grid and deletes values from candidate list
     protected void checkGrid9(MyJButton[][] sudokuGrid) {
         for (int i = 6; i < 9; i++) {
             for (int j = 6; j < 9; j++) {
