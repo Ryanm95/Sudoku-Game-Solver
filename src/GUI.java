@@ -40,6 +40,8 @@ public class GUI extends JFrame implements ActionListener{
     private NakedPair np = new NakedPair();
     private Solve sol = new Solve();
 
+    private int colorChangeIndex = 0;
+
 
     public GUI(){
         super("Sudoku");
@@ -67,14 +69,19 @@ public class GUI extends JFrame implements ActionListener{
         MyJButton click = (MyJButton) event.getSource();
 
         for(int i = 0; i < values.length-2; ++i){
+            choices[i].setForeground(Color.BLACK);
             if(event.getSource() == choices[i]){        // button we clicked was an number choice
                 value = choices[i].getValue();
                 choiceClickedFirst = true;
                 eraserClicked = false;
                 questionClicked = false;
+                choices[i].setForeground(Color.RED);
+                colorChangeIndex = i;
 
             }
         }
+        choices[colorChangeIndex].setForeground(Color.RED);
+
         if(event.getSource() == choices[9]){        // if eraser was clicked
             value = 0;
             eraserClicked = true;
