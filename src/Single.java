@@ -1,3 +1,12 @@
+/**
+ * @authors Edgar Martinez-Ayala and Ryan Moran
+ * Single class - Handles the single algorithm functionality.
+ *                If button has a candidate list size of one then
+ *                it adds the number to the puzzles and updates
+ *                the candidate list for buttons in the row, col,
+ *                and grid.
+ */
+
 public class Single extends Hint{
 
     public boolean single(MyJButton[][] sudokuGrid) {

@@ -1,3 +1,12 @@
+/**
+ * @authors Edgar Martinez-Ayala and Ryan Moran
+ * LockedCandidate class - Handles the locked candidate algorithm functionality.
+ *                         It works by checking the box for a locked candidate
+ *                         and if one is found it performs it needed action otherwise
+ *                         it checks the next grid box to see if one is there. This happens
+ *                         till a locked candidate is found.
+ */
+
 public class LockedCandidate extends Hint {
 
     public void lockedCandidate(MyJButton[][] sudokuGrid){
