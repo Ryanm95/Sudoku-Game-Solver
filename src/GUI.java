@@ -65,6 +65,8 @@ public class GUI extends JFrame implements ActionListener{
                 choiceClickedFirst = true;
                 eraserClicked = false;
                 questionClicked = false;
+                click.setBackground(Color.blue);
+
             }
         }
         if(event.getSource() == choices[9]){        // if eraser was clicked

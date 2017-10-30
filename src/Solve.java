@@ -6,17 +6,22 @@ public class Solve extends Hint {
     private HiddenSingle hs = new HiddenSingle();
     private LockedCandidate lc = new LockedCandidate();
     private NakedPair np = new NakedPair();
-    private Timer timer;
+    private Timer timer = new Timer(1000, null);
 
     //
     // Solves puzzle using 4 algorithms
     //
     public void solvePuzzle(MyJButton[][] sudokuGrid) {
         while (true) {
-            s.single(sudokuGrid);
-            //timer.setDelay(100);
-            hs.hiddenSingle(sudokuGrid);
+
+            if(s.single(sudokuGrid)){
+                timer.setDelay(1000);
+            }
+            if(hs.hiddenSingle(sudokuGrid)){
+                timer.setDelay(1000);
+            }
             lc.lockedCandidate(sudokuGrid);
+            np.processNakedPair(sudokuGrid);
         }
     }
 }

@@ -1,74 +1,158 @@
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class NakedPair extends Hint{
-    private  ArrayList<ArrayList<Integer>> possiblePair;
+    private int rowCount = 0;
+    private int colCount = 0;
 
-    private void setUparray(){
-        possiblePair = new ArrayList<ArrayList<Integer>>(9);
-        for(int i = 0; i < 9; i++){
-            possiblePair.add(new ArrayList<Integer>(2));
-        }
-    }
-
-    public void processNakedPair(MyJButton[][] sudokuGrid){
-        for(int i = 0; i < 9; i++){
-            setUparray();
-            //possiblePair.add(new ArrayList<Integer>();
-            if(processRow(i, sudokuGrid) == 1){
+    public void processNakedPair(MyJButton[][] sudokuGrid) {
+        int tmpCount = rowCount;
+        while(tmpCount < 9){
+            if(processRow(tmpCount, sudokuGrid)){
+                tmpCount++;
+                rowCount = tmpCount;
                 return;
             }
-            //System.out.println();
-            //proccessCol(i, sudokuGrid);
+            tmpCount++;
+            rowCount = tmpCount;
         }
-    }
-
-    public int processRow(int row, MyJButton[][] sudokuGrid){
-        int index = 0;
-        for(int i = 0; i < 9; i++){
-            if(sudokuGrid[i][row].getCandidateList().size() == 2) {   // if not original button and CL is 2
-                //ArrayList temp = sudokuGrid[i][row].getCandidateList();
-                ArrayList temp = new ArrayList(sudokuGrid[i][row].getCandidateList());      // copy CL
-                possiblePair.get(i).addAll(temp);           // add CL to array
-                //System.out.println(possiblePair.get(i));
-            }
-
-        }
-        System.out.println(possiblePair);
-
-        index = comparePairs(possiblePair);     // get index of one of the matching candidate lists
-        if(index != 0) {                        // if there is one matching
-            for (int i = 0; i < 9; i++) {          // loop though sudoku grid on that row and delete all occurances of those numbers
-                if (!sudokuGrid[i][row].getCandidateList().equals(possiblePair.get(index))) {
-                    int num1 = 6;       // test number
-                    num1 = possiblePair.get(index).get(0);    //TODO: get the first and second number from the matching arraylist
-                    int num2 = possiblePair.get(index).get(1);
-                    for (int j = 0; j < 9; j++) {
-                        sudokuGrid[i][row].deleteCandidate(num1);       // TODO: delete both numbers from row except the two matching
-                        sudokuGrid[i][row].deleteCandidate(num2);
-                    }
-                    //checkRow(i + 1, num1, sudokuGrid);
-                    //checkRow(i + 1, num2, sudokuGrid);
+        System.out.println("LOL");
+        if(tmpCount == 9){
+            System.out.println("IN HERE");
+            tmpCount = colCount;
+            while(tmpCount< 9){
+                if(processCol(tmpCount, sudokuGrid)){
+                    tmpCount++;
+                    colCount = tmpCount;
+                    return;
                 }
+                tmpCount++;
+                colCount = tmpCount;
             }
-            return 1;
         }
-        return  -1;
+
+        if(rowCount == 9 && colCount == 9){
+            System.out.print("END");
+
+            rowCount = 0;
+            colCount = 0;
+        }
+        return;
     }
 
-    public void proccessCol(int col){
+    private boolean processRow(int row, MyJButton[][] sudokuGrid){
+        int[] counter = new int[9];
 
-    }
+        for (int i = 0; i < 9; ++i)
+            counter[i] = 0; // initialize to 0
 
-    private int comparePairs(ArrayList<ArrayList<Integer>> possiblePair){
-        for(int i = 0; i < 8; i++){                 // start at the front of the list
-            for(int j = i + 1; j < 9; j++){         // compare to the next element in the list
-                if(possiblePair.get(i).equals(possiblePair.get(j))) {        // if they are the same
-                    return i;
+        for(int i = 0; i < 9; i++){ //adds pairs to list
+            if(sudokuGrid[i][row].getCandidateList().size() == 2 && sudokuGrid[i][row].getValue() == 0){
+                for(int a = 0; a < sudokuGrid[i][row].getCandidateList().size(); a++) {
+                    counter[(int) sudokuGrid[i][row].getCandidateList().get(a)-1] += 1;
                 }
             }
         }
-        return -1;
+
+        int valueFound = -1;
+        int i;
+        for(i = 0; i < 9; i++){
+            if(counter[i] == 2){
+                valueFound = i + 1;
+                break;
+            }
+        }
+
+        int valueFound2 = -1;
+        for(int j = i + 1; j < 9; j++){
+            if(counter[j] == 2){
+                valueFound2 = j + 1;
+            }
+        }
+
+        int col = -1, col1 = -1;
+
+        for (int j = 0; j < 9; ++j){
+            if (sudokuGrid[j][row].getCandidateList().contains(valueFound) &&  sudokuGrid[j][row].getValue() == 0
+                    && sudokuGrid[j][row].getCandidateList().contains(valueFound2)
+                    && sudokuGrid[j][row].getCandidateList().size() == 2){
+                if(col == -1){
+                    col = j;
+                }
+                else{
+                    col1 = j;
+                    break;
+                }
+            }
+        }
+
+        if(col != -1 && col1 != -1){
+            checkRow(row + 1, valueFound,sudokuGrid);
+            checkRow(row + 1, valueFound2,sudokuGrid);
+            sudokuGrid[col][row].getCandidateList().add(valueFound);
+            sudokuGrid[col][row].getCandidateList().add(valueFound2);
+            sudokuGrid[col1][row].getCandidateList().add(valueFound);
+            sudokuGrid[col1][row].getCandidateList().add(valueFound2);
+            return true;
+        }
+
+        return false;
     }
+
+    private boolean processCol(int col, MyJButton[][] sudokuGrid){
+        int[] counter = new int[9];
+
+        for (int i = 0; i < 9; ++i)
+            counter[i] = 0; // initialize to 0
+
+        for(int i = 0; i < 9; i++){ //adds pairs to list
+            if(sudokuGrid[col][i].getCandidateList().size() == 2 && sudokuGrid[col][i].getValue() == 0){
+                for(int a = 0; a < sudokuGrid[col][i].getCandidateList().size(); a++) {
+                    counter[(int) sudokuGrid[col][i].getCandidateList().get(a)-1] += 1;
+                }
+            }
+        }
+
+        int valueFound = -1;
+        int i;
+        for(i = 0; i < 9; i++){
+            if(counter[i] == 2){
+                valueFound = i + 1;
+                break;
+            }
+        }
+
+        int valueFound2 = -1;
+        for(int j = i + 1; j < 9; j++){
+            if(counter[j] == 2){
+                valueFound2 = j + 1;
+            }
+        }
+
+        int row = -1, row1 = -1;
+
+        for (int j = 0; j < 9; ++j){
+            if (sudokuGrid[col][j].getCandidateList().contains(valueFound) &&  sudokuGrid[col][j].getValue() == 0
+                    && sudokuGrid[col][j].getCandidateList().contains(valueFound2)
+                    && sudokuGrid[col][j].getCandidateList().size() == 2){
+                if(row == -1){
+                    row = j;
+                }
+                else{
+                    row1 = j;
+                    break;
+                }
+            }
+        }
+
+        if(row != -1 && row1 != -1){
+            checkCol(col + 1, valueFound,sudokuGrid);
+            checkRow(col + 1, valueFound2,sudokuGrid);
+            sudokuGrid[col][row].getCandidateList().add(valueFound);
+            sudokuGrid[col][row].getCandidateList().add(valueFound2);
+            sudokuGrid[col][row1].getCandidateList().add(valueFound);
+            sudokuGrid[col][row1].getCandidateList().add(valueFound2);
+            return true;
+        }
+
+        return false;
+    }
+
 }
